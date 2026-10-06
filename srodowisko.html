@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przygotowanie środowiska — Java 2026/27</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="container">
+
+    <header>
+        <h1>Przygotowanie środowiska</h1>
+        <p class="year">Język Java · 2026/27</p>
+    </header>
+
+    <section class="content">
+
+        <h2 class="section-title">I. Środowisko Java</h2>
+
+        <div class="info-box">
+            <p>
+                Do tworzenia i uruchamiania programów w Javie zalecane jest
+                korzystanie z jednego z poniższych środowisk:
+            </p>
+
+            <div class="recommendations">
+
+                <div class="recommendation">
+                    <span class="recommendation-icon">E</span>
+                    <div>
+                        <h3>Eclipse</h3>
+                        <p>
+                            Popularne środowisko programistyczne przeznaczone
+                            między innymi do pracy z Javą.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="recommendation">
+                    <span class="recommendation-icon">I</span>
+                    <div>
+                        <h3>IntelliJ IDEA</h3>
+                        <p>
+                            Nowoczesne środowisko programistyczne firmy JetBrains,
+                            dobrze przystosowane do nauki i tworzenia aplikacji
+                            w Javie.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="important-text">
+                <strong>Rekomendowane są Eclipse oraz IntelliJ IDEA.</strong>
+                W przypadku tych środowisk nie ma potrzeby osobnej instalacji
+                Javy — środowisko może zająć się odpowiednią konfiguracją
+                potrzebnych komponentów.
+            </p>
+
+            <p>
+                Korzystanie z innych środowisk lub konfiguracji nie jest
+                zalecane, ponieważ może powodować problemy ze zgodnością
+                z zadaniami i środowiskiem testowym.
+            </p>
+        </div>
+
+
+        <h2 class="section-title">II. GitHub</h2>
+
+        <div class="info-box">
+            <p>
+                Kod wszystkich zadań należy przechowywać na
+                <strong>GitHubie</strong>.
+            </p>
+
+            <p>
+                Każdy student musi utworzyć
+                <strong>prywatne repozytorium</strong>, w którym będzie
+                przechowywany kod rozwiązań.
+            </p>
+        </div>
+
+        <div class="checklist">
+
+            <div class="check-item">
+                <span class="check-icon">1</span>
+                <div>
+                    <h3>Utwórz prywatne repozytorium</h3>
+                    <p>
+                        Repozytorium powinno być prywatne i przeznaczone
+                        do przechowywania rozwiązań zadań.
+                    </p>
+                </div>
+            </div>
+
+            <div class="check-item">
+                <span class="check-icon">2</span>
+                <div>
+                    <h3>Dodaj prowadzącego jako Collaboratora</h3>
+                    <p>
+                        Do repozytorium należy dodać prowadzącego jako
+                        <strong>Collaboratora</strong>, aby możliwe było
+                        przeglądanie kodu.
+                    </p>
+
+                    <div class="username">
+                        <span>Nazwa użytkownika:</span>
+                        <strong>js-ivy</strong>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <h2 class="section-title">III. Środowisko testowe</h2>
+
+        <div class="info-box">
+
+            <p>
+                Do sprawdzania rozwiązań wykorzystywany jest bot działający
+                bezpośrednio z GitHubem.
+            </p>
+
+            <p>
+                Bot otrzymuje dostęp
+                <strong>wyłącznie do repozytorium z kodem zadań</strong>.
+                Nie należy udostępniać mu dostępu do innych repozytoriów.
+            </p>
+
+            <div class="bot-link">
+                <a
+                    href="https://github.com/apps/ivytestbot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="bot-link-icon">↗</span>
+
+                    <div>
+                        <strong>Przejdź do instalacji bota</strong>
+                        <span>
+                            Otwórz stronę bota GitHub i skonfiguruj dostęp
+                            do swojego repozytorium.
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="checklist">
+
+            <div class="check-item">
+                <span class="check-icon">1</span>
+                <div>
+                    <h3>Zainstaluj bota GitHub</h3>
+                    <p>
+                        Bot musi zostać zainstalowany w ramach konta GitHub
+                        i otrzymać dostęp do odpowiedniego repozytorium.
+                    </p>
+                </div>
+            </div>
+
+            <div class="check-item">
+                <span class="check-icon">2</span>
+                <div>
+                    <h3>Ogranicz dostęp do jednego repozytorium</h3>
+                    <p>
+                        Podczas instalacji należy wybrać opcję ograniczającą
+                        dostęp bota do <strong>jednego, konkretnego repozytorium</strong>
+                        zawierającego rozwiązania zadań.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <h2 class="section-title">Jak działa środowisko testowe?</h2>
+
+        <div class="process">
+
+            <div class="process-step">
+                <span class="process-number">1</span>
+
+                <div>
+                    <h3>Przesyłasz kod</h3>
+                    <p>
+                        Rozwiązanie zadania umieszczasz w swoim repozytorium
+                        GitHub.
+                    </p>
+                </div>
+            </div>
+
+            <div class="process-arrow">↓</div>
+
+            <div class="process-step">
+                <span class="process-number">2</span>
+
+                <div>
+                    <h3>Bot pobiera kod</h3>
+                    <p>
+                        Środowisko testowe pobiera odpowiedni kod
+                        z Twojego repozytorium.
+                    </p>
+                </div>
+            </div>
+
+            <div class="process-arrow">↓</div>
+
+            <div class="process-step">
+                <span class="process-number">3</span>
+
+                <div>
+                    <h3>Uruchamiane są testy</h3>
+                    <p>
+                        Kod jest uruchamiany w środowisku testowym,
+                        a przygotowane testy sprawdzają poprawność rozwiązania.
+                    </p>
+                </div>
+            </div>
+
+            <div class="process-arrow">↓</div>
+
+            <div class="process-step">
+                <span class="process-number">4</span>
+
+                <div>
+                    <h3>Otrzymujesz wynik</h3>
+                    <p>
+                        Wynik testów jest zwracany w zamkniętym wątku
+                        <strong>GitHub Issues</strong>.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <h2>Automatyczne sprawdzanie zmian</h2>
+
+            <p>
+                Jeżeli dla danego zadania dostępne są już testy,
+                środowisko testowe automatycznie monitoruje repozytorium.
+            </p>
+
+            <p>
+                Bot <strong>okresowo</strong> sprawdza
+                czy w repozytorium pojawiła się zmiana kodu.
+            </p>
+
+            <p>
+                Jeżeli kod został zmieniony, bot uruchamia testy
+                <strong>wyłącznie tych zadań, których kod został zmieniony</strong>.
+                Nie są ponownie uruchamiane testy wszystkich zadań.
+            </p>
+
+        </div>
+
+
+        <!-- Struktura repozytorium -->
+
+        <h2 class="section-title">Struktura repozytorium</h2>
+
+        <div class="info-box">
+
+            <p>
+                Każde zadanie musi znajdować się w folderze o nazwie
+                określonej z góry w treści zadania.
+            </p>
+
+            <p>
+                Jest to <strong>wymagane przez środowisko testowe</strong>,
+                ponieważ bot wykorzystuje nazwę folderu do określenia,
+                którego zadania dotyczą zmiany i jakie testy należy uruchomić.
+            </p>
+
+            <p>
+                Dodatkowo klasa implementująca rozwiązanie również 
+                <strong>będzie wymagała określonej nazwy</strong>, ponieważ w
+                innym przypadku testy nie mogłby być uniwersalne.             
+	    </p>
+
+
+        </div>
+
+        <div class="structure-box">
+
+            <div class="structure-title">
+                Przykładowa struktura
+            </div>
+
+            <pre><code>
+            repozytorium/
+            │
+            ├── zadanie01/
+            │   └── OkreslonaNazwa.java
+            │   └── ...
+            │
+            ├── zadanie02/
+            │   └── OkreslonaNazwa.java
+            │   └── ...
+            │
+            ├── zadanie03/
+            │   └── OkreslonaNazwa.java
+            │   └── ...
+            │
+            └── ...
+            </code></pre>
+
+        </div>
+
+        <div class="note-box">
+            <strong>Ważne:</strong>
+            Nazwy folderów oraz implementacji zadań należy zachować dokładnie 
+            w formie podanej w treści danego zadania. Zmiana nazw może
+            uniemożliwić prawidłowe uruchomienie testów, a co za tym idzie
+            brak zaliczenia zadania w danym terminie.
+        </div>
+
+    </section>
+
+    <a href="index.html" class="link-card back-link">
+
+        <span>←</span>
+
+        <div>
+            <h2>Powrót do strony głównej</h2>
+        </div>
+
+    </a>
+
+
+    <footer>
+        2026
+    </footer>
+
+</main>
+
+</body>
+</html>
