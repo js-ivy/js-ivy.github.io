@@ -753,3 +753,85 @@ footer {
         padding: 14px;
     }
 }
+
+.note-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 18px 0;
+    padding: 0;
+}
+
+.note-box ul li {
+    position: relative;
+
+    padding: 13px 16px 13px 42px;
+
+    background: rgba(17, 24, 39, 0.65);
+    border: 1px solid #374151;
+    border-radius: 10px;
+
+    color: #d1d5db;
+    font-size: 14px;
+    line-height: 1.5;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.note-box ul li::before {
+    content: "";
+
+    position: absolute;
+    left: 16px;
+    top: 19px;
+
+    width: 8px;
+    height: 8px;
+
+    background: #f89820;
+    border-radius: 50%;
+}
+
+.note-box ul li strong {
+    color: #f89820;
+    font-weight: 700;
+}
+
+.note-box ul li:hover {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: rgba(248, 152, 32, 0.45);
+    transform: translateX(3px);
+}
+
+.note-box > p:last-child {
+    margin-top: 16px;
+    padding-top: 14px;
+
+    border-top: 1px solid rgba(248, 152, 32, 0.25);
+}
+
+@media (max-width: 600px) {
+    .note-box ul {
+        gap: 8px;
+        margin: 15px 0;
+    }
+
+    .note-box ul li {
+        padding: 12px 12px 12px 34px;
+        font-size: 13px;
+        border-radius: 9px;
+    }
+
+    .note-box ul li::before {
+        left: 13px;
+        top: 18px;
+
+        width: 7px;
+        height: 7px;
+    }
+}
