@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zadania — Java 2026/27</title>
+    <title>Zadania - Java 2026/27</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,17 +16,431 @@
         <p class="year">Język Java · 2026/27</p>
     </header>
 
-
-    <a href="index.html" class="link-card">
-        ← Powrót do strony głównej
+    <a href="index.html" class="link-card back-link">
+        <span>←</span>
+        Powrót do strony głównej
     </a>
 
+    <section class="content">
+
+        <h2 class="section-title">Zadania do wykonania</h2>
+
+        <details class="task-card" data-deadline="2026-11-01T12:00:00">
+            <summary class="task-summary">
+                <span class="task-number">01</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 1 - Strażnik wartości</strong>
+
+                    <span class="task-description">
+                        Klasa abstrakcyjna · Proste działania
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-11-01T12:00:00">
+                            01.11.2026, 12:00
+                        </time>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-points">
+                            Maks. 2 pkt
+                        </span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+
+                <div class="info-box task-story">
+                    <p>
+                        Witaj w Fabryce Cudów! To miejsce, w którym
+                        niezwykłe pomysły zamieniają się w działające
+                        automaty, a każdy produkt musi przejść kontrolę
+                        jakości.
+                    </p>
+
+                    <p>
+                        Jako Młodszy Programista/Młodsza Programistka
+                        otrzymujesz pierwsze odpowiedzialne zadanie:
+                        przygotowanie mechanizmu kontrolującego wartości
+                        przekazywane przez fabryczne maszyny.
+                    </p>
+
+                    <p>
+                        Twoim zadaniem jest rozszerzenie abstrakcyjnej
+                        klasy <code>ValueCheckerInterface</code>
+                        i zaimplementowanie metod odpowiedzialnych
+                        za przyjmowanie liczb, obliczanie wyniku,
+                        resetowanie oraz wznawianie pracy automatu.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Idea zadania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Automat przechowuje sumę przetworzonych
+                            wartości, wewnętrzny dzielnik oraz informację,
+                            czy może przyjmować kolejne liczby.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Liczba parzysta:</strong>
+                                zostaje podzielona całkowicie przez
+                                aktualny dzielnik. Wynik dzielenia
+                                jest dodawany do sumy.
+                            </li>
+
+                            <li>
+                                <strong>Liczba nieparzysta:</strong>
+                                najpierw zwiększa dzielnik o jeden,
+                                a następnie jej pierwotna wartość
+                                zostaje dodana do sumy.
+                            </li>
+
+                            <li>
+                                <strong>Wynik dzielenia równy zero:</strong>
+                                automat przestaje przyjmować dane.
+                                Kolejne wywołania <code>input()</code>
+                                nie zmieniają jego stanu.
+                            </li>
+
+                            <li>
+                                <strong><code>output()</code>:</strong>
+                                zwraca aktualną sumę bez zmieniania
+                                stanu automatu.
+                            </li>
+
+                            <li>
+                                <strong><code>reset()</code>:</strong>
+                                przywraca sumę do zera, dzielnik do
+                                wartości jeden i włącza przyjmowanie
+                                danych.
+                            </li>
+
+                            <li>
+                                <strong><code>continueProcessing()</code>:</strong>
+                                przywraca dzielnik do wartości jeden
+                                i włącza przyjmowanie danych,
+                                ale zachowuje dotychczasową sumę.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Uwaga:</strong>
+                            dzielnik jest początkowo równy
+                            <code>1</code>. W przypadku liczby
+                            nieparzystej do sumy dodajemy oryginalną
+                            liczbę, a nie dzielnik.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład działania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Automat rozpoczyna pracę z sumą równą
+                            <code>0</code> i dzielnikiem równym
+                            <code>1</code>. Otrzymuje kolejno liczby:
+                            <code>2, 3, 4, 1, 2, 10</code>.
+                        </p>
+
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operacja</th>
+                                        <th>Dzielnik</th>
+                                        <th>Suma</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Stan początkowy</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td><span class="status-active">Aktywny</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>input(2)</code></td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td><span class="status-active">Aktywny</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>input(3)</code></td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td><span class="status-active">Aktywny</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>input(4)</code></td>
+                                        <td>2</td>
+                                        <td>7</td>
+                                        <td><span class="status-active">Aktywny</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>input(1)</code></td>
+                                        <td>3</td>
+                                        <td>8</td>
+                                        <td><span class="status-active">Aktywny</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>input(2)</code></td>
+                                        <td>3</td>
+                                        <td>8</td>
+                                        <td><span class="status-stopped">Zatrzymany</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>input(10)</code></td>
+                                        <td>3</td>
+                                        <td>8</td>
+                                        <td><span class="status-stopped">Zatrzymany</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            Podczas przetwarzania liczby
+                            <code>2</code> w piątym kroku dzielenie
+                            całkowite <code>2 / 3</code> daje
+                            <code>0</code>. Automat zatrzymuje się,
+                            a następna liczba zostaje zignorowana.
+                        </p>
+
+                        <p>
+                            <strong>Wynik:</strong>
+                            <code>output()</code> zwraca
+                            <code>8</code>.
+                        </p>
+
+                        <p>
+                            Po wywołaniu
+                            <code>continueProcessing()</code>
+                            automat zachowa sumę <code>8</code>
+                            i ponownie rozpocznie przetwarzanie.
+                            Wywołanie <code>input(8)</code> zwiększy
+                            sumę do <code>10</code>.
+                        </p>
+                    </div>
+                </section>
+
+                
+                <section class="task-section">
+                    <h3>Gwarancje</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Należy przyjąć, że wszystkie testy będą spełniały
+                            następujące warunki:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Zakres danych:</strong>
+                                wszystkie przekazywane liczby będą mieściły się
+                                w przedziale od <code>0</code> do <code>1000</code>
+                                włącznie. Ostateczny wynik może wykroczyć poza zadany
+                                zakres.
+                            </li>
+
+                            <li>
+                                <strong>Poprawne wywołania:</strong>
+                                wszystkie metody będą wywoływane zgodnie ze
+                                swoimi sygnaturami i wymaganym typem argumentów.
+                            </li>
+
+                            <li>
+                                <strong>Zakres operacji:</strong>
+                                nie musisz obsługiwać argumentów spoza
+                                określonego zakresu ani niepoprawnych typów danych.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Nie trzeba dodawać obsługi błędów dla przypadków,
+                            które nie zostały objęte powyższymi gwarancjami.
+                        </p>
+                    </div>
+                </section>
+
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozwiązanie powinno zostać przygotowane w <code>Java 17</code>
+                            i spełniać następujące wymagania:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Folder:</strong>
+                                wszystkie pliki rozwiązania umieść w folderze
+                                <code>Zadanie1</code>.
+                            </li>
+
+                            <li>
+                                <strong>Klasa:</strong>
+                                implementację przygotuj w klasie
+                                <code>ValueChecker</code>.
+                            </li>
+
+                            <li>
+                                <strong>Klasa bazowa:</strong>
+                                pobierz plik
+                                <code>ValueCheckerInterface.java</code>
+                                i wykorzystaj go w swoim rozwiązaniu.
+                                <a href="java/ValueCheckerInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz ValueCheckerInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Dokumentacja:</strong>
+                                szczegółowy opis wymaganych metod znajdziesz w
+                                <a href="docs/ValueCheckerInterface.html"
+                                class="javadoc-link"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                    dokumentacji JavaDoc
+                                </a>.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+
+                    <div class="qa-content">
+                        <p class="qa-empty">
+                            Na ten moment nie ma żadnych pytań
+                            ani odpowiedzi.
+                        </p>
+
+                        <!--
+                        Szablon pytania:
+
+                        <article class="qa-item">
+                            <div class="qa-question">
+                                <strong>Q:</strong>
+                                Treść pytania.
+                            </div>
+                            <div class="qa-answer">
+                                <strong>A:</strong>
+                                Treść odpowiedzi.
+                            </div>
+                        </article>
+                        -->
+                    </div>
+                </details>
+
+            </div>
+        </details>
+
+    </section>
+
     <footer>
-        Ostatnia aktualizacja: 13.10.2026.
+        Ostatnia aktualizacja: 18.10.2026.
         Strona wykonana przy wsparciu AI.
     </footer>
 
 </main>
+
+<script>
+    function updateCountdowns() {
+        const tasks = document.querySelectorAll(
+            ".task-card[data-deadline]"
+        );
+
+        const now = Date.now();
+        const dayInMilliseconds = 24 * 60 * 60 * 1000;
+
+        tasks.forEach(task => {
+            const deadlineValue = task.dataset.deadline;
+            const deadline = new Date(deadlineValue);
+
+            const countdown = task.querySelector(".task-countdown");
+            const timeElement = task.querySelector(".term-time time");
+
+            if (!countdown || Number.isNaN(deadline.getTime())) {
+                return;
+            }
+
+            // Ujednolicenie informacji o terminie w HTML.
+            if (timeElement) {
+                timeElement.dateTime = deadlineValue;
+
+                timeElement.textContent =
+                    new Intl.DateTimeFormat("pl-PL", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }).format(deadline);
+            }
+
+            const remaining = deadline.getTime() - now;
+
+            if (remaining <= 0) {
+                countdown.textContent = "Termin minął";
+                countdown.classList.add("deadline-expired");
+                return;
+            }
+
+            countdown.classList.remove("deadline-expired");
+
+            if (remaining >= dayInMilliseconds) {
+                const days = Math.floor(
+                    remaining / dayInMilliseconds
+                );
+
+                countdown.textContent = days === 1
+                    ? "1 dzień do końca"
+                    : `${days} dni do końca`;
+            } else {
+                const hours = Math.floor(
+                    remaining / (60 * 60 * 1000)
+                );
+
+                const minutes = Math.ceil(
+                    (remaining % (60 * 60 * 1000)) / (60 * 1000)
+                );
+
+                countdown.textContent =
+                    `${hours} godz. ${minutes} min do końca`;
+            }
+        });
+    }
+    updateCountdowns();
+    setInterval(updateCountdowns, 30_000);
+
+</script>
 
 </body>
 </html>
