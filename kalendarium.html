@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Kalendarium publikacji zadań i terminów oddawania rozwiązań."
+    >
+
+    <title>Kalendarium zadań | Java 2026/2027</title>
+
+    <link rel="stylesheet" href="kalendarium.css">
+    <script src="kalendarium.js" defer></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="page-header">
+
+        <h1>Kalendarium zadań</h1>
+
+        <p class="year">Język Java · 2026/27</p>
+
+    </header>
+
+
+    <main>
+
+        <section class="info-box">
+
+            <h2>Legenda</h2>
+
+            <div class="legend">
+
+                <div class="legend-item">
+                    <span class="legend-dot first-dot"></span>
+                    <span>I termin</span>
+                </div>
+
+                <div class="legend-item">
+                    <span class="legend-dot second-dot"></span>
+                    <span>II termin</span>
+                </div>
+
+            </div>
+
+            <p class="legend-description">
+                Każde zadanie ma własny kolor. Pierwsze terminy są oznaczone
+                odcieniami zieleni, a drugie odcieniami niebieskiego.
+                Publikacje zadań są oznaczone kolorem pomarańczowym,
+                natomiast czerwony oznacza koniec terminu.
+                Im wyższy numer zadania, tym ciemniejszy kolor.
+            </p>
+
+
+        </section>
+
+        <section class="calendar-section" aria-label="Kalendarz terminów">
+
+            <div class="calendar-navigation">
+
+                <button
+                    type="button"
+                    id="previous-month"
+                    class="month-button"
+                    aria-label="Poprzedni miesiąc"
+                >
+                    <span aria-hidden="true">‹</span>
+                </button>
+
+                <div class="month-title-wrapper">
+                    <h2 id="month-title" aria-live="polite">
+                        Październik 2026
+                    </h2>
+
+                    <p id="month-subtitle">
+                        Harmonogram zadań
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    id="next-month"
+                    class="month-button"
+                    aria-label="Następny miesiąc"
+                >
+                    <span aria-hidden="true">›</span>
+                </button>
+
+            </div>
+
+
+            <div class="calendar" id="calendar">
+
+                <div class="weekdays" aria-hidden="true">
+                    <div>Pon</div>
+                    <div>Wt</div>
+                    <div>Śr</div>
+                    <div>Czw</div>
+                    <div>Pt</div>
+                    <div>Sob</div>
+                    <div>Nd</div>
+                </div>
+
+                <div id="calendar-weeks" class="calendar-weeks">
+                    <!-- Dni i paski generuje JavaScript. -->
+                </div>
+
+            </div>
+
+
+            <div class="calendar-footer">
+
+                <button
+                    type="button"
+                    id="today-button"
+                    class="today-button"
+                >
+                    Przejdź do października 2026
+                </button>
+
+                <span id="task-count" class="task-count">
+                    12 zadań
+                </span>
+
+            </div>
+
+        </section>
+
+        <section class="info-box schedule-info">
+
+            <h2>Zasady harmonogramu</h2>
+
+            <ul>
+                <li>
+                    Pierwsze zadanie opublikowano
+                    <strong>18 października 2026 r.</strong>
+                </li>
+
+                <li>
+                    Zadania 2 i 3 zostaną opublikowane
+                    <strong>25 października 2026 r.</strong>
+                </li>
+
+                <li>
+                    Kolejne zadania są publikowane w niedziele,
+                    aż do 20 grudnia 2026 r.
+                </li>
+
+                <li>
+                    I termin przypada 14 dni po publikacji zadania.
+                </li>
+
+                <li>
+                    II termin przypada 14 dni po pierwszym terminie,
+                    z wyjątkiem zadań 11 i 12, dla których odstęp wynosi 21 dni.
+                </li>
+            </ul>
+
+        </section>
+
+        <a href="index.html" class="link-card back-link">
+            <span>←</span>
+            <div>
+                <h2>Powrót do strony głównej</h2>
+            </div>
+        </a>
+
+    </main>
+
+
+    <footer>
+        Ostatnia aktualizacja: 19.10.2026.
+        Strona wykonana przy wsparciu AI.
+    </footer>
+
+</div>
+
+</body>
+</html>
