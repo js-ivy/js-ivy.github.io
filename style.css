@@ -1303,3 +1303,36 @@ footer {
         font-size: 12px;
     }
 }
+
+.correction-notice {
+    background-color: #20202b;
+    border: 1px solid #393447;
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    color: #d1d1dc;
+}
+
+.correction-notice p {
+    margin: 0 0 10px;
+    line-height: 1.6;
+}
+
+.correction-notice p:last-child {
+    margin-bottom: 0;
+}
+
+.correction-notice strong {
+    color: #f87171;
+}
+
+.correction-notice code {
+    background-color: #302b3d;
+    color: #fca5a5;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+
+

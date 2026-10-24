@@ -22,8 +22,7 @@ public abstract class ValueCheckerInterface {
      * przez obecny dzielnik i dodaniu wyniku do sumy.
      * <br>
      * Dla liczb nieparzystych przetworzenie polega na 
-     * zwiększeniu dzielnika o jeden, a następnie podziale liczby
-     * przez obecny dzielnik i dodaniu wyniku do sumy.
+     * zwiększeniu dzielnika o jeden i dodaniu liczby do sumy.
      * <br>
      * Jeżeli automat nie przyjmuje danych, wywołanie tej
      * metody nie może zmienić jego stanu.
