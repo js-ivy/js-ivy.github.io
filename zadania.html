@@ -376,10 +376,1239 @@
             </div>
         </details>
 
+        <details class="task-card" data-deadline="2026-11-08T23:59:59">
+            <summary class="task-summary">
+                <span class="task-number">02</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 2 - Kontroler jakości</strong>
+
+                    <span class="task-description">
+                        Interfejs · Listy · Enum · Rekordy
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-11-08T23:59:59">
+                            08.11.2026, 23:59
+                        </time>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-points">
+                            Maks. 2 pkt
+                        </span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+
+                <div class="info-box task-story">
+                    <p>
+                        Witamy ponownie w Fabryce Cudów! Po pomyślnym
+                        przygotowaniu mechanizmu kontrolującego wartości
+                        otrzymujesz kolejne odpowiedzialne zadanie.
+                    </p>
+
+                    <p>
+                        Tym razem problem jest znacznie poważniejszy.
+                        Jedna z fabrycznych maszyn uległa awarii. Jej
+                        zadaniem jest produkowanie obiektów zawierających
+                        dane określonego typu. Niestety, wskutek usterki
+                        niektóre produkty zawierają kilka różnych wartości,
+                        a inne opuszczają linię produkcyjną całkowicie puste.
+                    </p>
+
+                    <p>
+                        Fabryka nie może pozwolić sobie na wyrzucenie
+                        wszystkich wadliwych produktów. Twoim zadaniem
+                        jest przygotowanie kontrolera jakości, który
+                        sprawdzi każdy obiekt, sklasyfikuje go, naprawi
+                        możliwe do naprawienia produkty i odzyska
+                        nadmiarowe dane.
+                    </p>
+
+                    <p>
+                        Pamiętaj: tym razem nie budujesz samej maszyny
+                        ani nie tworzysz nowych produktów. Implementujesz
+                        interfejs odpowiedzialny za kontrolę jakości
+                        obiektów dostarczanych przez istniejącą maszynę.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Idea zadania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Każdy produkt wytworzony przez maszynę jest
+                            reprezentowany przez interfejs
+                            <code>MagicProductInterface</code>.
+                            Produkt określa oczekiwany typ danych za pomocą
+                            <code>DataType</code> i udostępnia cztery możliwe pola:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong><code>Integer</code>:</strong>
+                                liczba całkowita.
+                            </li>
+
+                            <li>
+                                <strong><code>Double</code>:</strong>
+                                liczba zmiennoprzecinkowa.
+                            </li>
+
+                            <li>
+                                <strong><code>Character</code>:</strong>
+                                pojedynczy znak.
+                            </li>
+
+                            <li>
+                                <strong><code>String</code>:</strong>
+                                napis.
+                            </li>
+                        </ul>
+
+                        <p>
+                            W prawidłowo działającej maszynie każdy produkt
+                            powinien zawierać dokładnie jedną wartość,
+                            zgodną z typem określonym przez
+                            <code>getExpectedType()</code>.
+                            Wszystkie pozostałe pola powinny mieć wartość
+                            <code>null</code>.
+                        </p>
+
+                        <p>
+                            Wskutek awarii produkt może zawierać więcej
+                            niż jedną wartość albo nie zawierać żadnej.
+                            Twoim zadaniem jest zaimplementowanie interfejsu
+                            <code>MachineControllerInterface</code>,
+                            który przywróci porządek na linii produkcyjnej.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Zasady kontroli jakości</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Każdy produkt przekazany do metody
+                            <code>process(MagicProductInterface product)</code>
+                            należy sprawdzić i przypisać do odpowiedniej
+                            kategorii.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Produkt poprawny:</strong>
+                                zawiera dokładnie jedną wartość i jest to
+                                wartość zgodna z oczekiwanym typem.
+                                Produkt należy dodać do listy poprawnych
+                                produktów.
+                            </li>
+
+                            <li>
+                                <strong>Produkt pusty:</strong>
+                                wszystkie cztery pola mają wartość
+                                <code>null</code>. Produkt należy dodać
+                                do listy pustych produktów.
+                            </li>
+
+                            <li>
+                                <strong>Produkt z nadmiarowymi danymi:</strong>
+                                zawiera wartość zgodną z oczekiwanym typem
+                                oraz co najmniej jedną dodatkową wartość.
+                                Należy zachować właściwą wartość, usunąć
+                                pozostałe dane, a usunięte wartości
+                                zgromadzić na odpowiednich listach
+                                zwrotnych. Naprawiony produkt należy
+                                dodać do listy poprawnych produktów.
+                            </li>
+
+                            <li>
+                                <strong>Produkt bez właściwej wartości:</strong>
+                                zawiera co najmniej jedną wartość, ale
+                                żadna nie jest zgodna z oczekiwanym typem.
+                                Należy usunąć wszystkie wartości i dodać
+                                opróżniony produkt do listy pustych
+                                produktów. Usunięte wartości należy
+                                zgromadzić na odpowiednich listach
+                                zwrotnych.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Uwaga:</strong>
+                            o poprawności produktu decyduje zarówno liczba
+                            przechowywanych wartości, jak i ich zgodność
+                            z <code>getExpectedType()</code>. Sam fakt,
+                            że produkt zawiera tylko jedną wartość,
+                            nie oznacza jeszcze, że jest poprawny.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład działania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Załóżmy, że maszyna przekazuje kontrolerowi produkty,
+                            których oczekiwanym typem jest <code>INTEGER</code>.
+                        </p>
+
+                        <p>
+                            Poniżej przedstawiono przykładowe produkty oraz
+                            sposób ich obsługi przez kontroler jakości.
+                        </p>
+
+                        <div class="product-example-list">
+
+                            <article class="product-example">
+                                <h4>Produkt A — poprawny</h4>
+
+                                <ul class="task-rules">
+                                    <li>Integer: <code>10</code></li>
+                                    <li>Double: <code>null</code></li>
+                                    <li>Character: <code>null</code></li>
+                                    <li>String: <code>null</code></li>
+                                </ul>
+
+                                <p>
+                                    Produkt zawiera dokładnie jedną wartość,
+                                    zgodną z oczekiwanym typem.
+                                </p>
+
+                                <p>
+                                    <strong>Wynik:</strong>
+                                    <span class="status-active">Poprawny</span>.
+                                    Produkt trafia na listę poprawnych produktów.
+                                </p>
+                            </article>
+
+                            <article class="product-example">
+                                <h4>Produkt B — nadmiarowe dane</h4>
+
+                                <ul class="task-rules">
+                                    <li>Integer: <code>20</code></li>
+                                    <li>Double: <code>3.5</code></li>
+                                    <li>Character: <code>null</code></li>
+                                    <li>String: <code>null</code></li>
+                                </ul>
+
+                                <p>
+                                    Wartość Integer jest zgodna z oczekiwanym typem,
+                                    dlatego pozostaje w produkcie. Wartość Double
+                                    zostaje usunięta i przekazana na listę zwrotną.
+                                </p>
+
+                                <p>
+                                    <strong>Wynik:</strong>
+                                    <span class="status-active">Naprawiony</span>.
+                                    Produkt trafia na listę poprawnych produktów,
+                                    a wartość <code>3.5</code> zostaje odzyskana.
+                                </p>
+                            </article>
+
+                            <article class="product-example">
+                                <h4>Produkt C — pusty</h4>
+
+                                <ul class="task-rules">
+                                    <li>Integer: <code>null</code></li>
+                                    <li>Double: <code>null</code></li>
+                                    <li>Character: <code>null</code></li>
+                                    <li>String: <code>null</code></li>
+                                </ul>
+
+                                <p>
+                                    Produkt nie zawiera żadnych wartości.
+                                </p>
+
+                                <p>
+                                    <strong>Wynik:</strong>
+                                    <span class="status-stopped">Pusty</span>.
+                                    Produkt trafia na listę pustych produktów.
+                                </p>
+                            </article>
+
+                            <article class="product-example">
+                                <h4>Produkt D — brak właściwego typu</h4>
+
+                                <ul class="task-rules">
+                                    <li>Integer: <code>null</code></li>
+                                    <li>Double: <code>2.5</code></li>
+                                    <li>Character: <code>'A'</code></li>
+                                    <li>String: <code>"test"</code></li>
+                                </ul>
+
+                                <p>
+                                    Produkt nie zawiera wartości typu Integer.
+                                    Wszystkie trzy istniejące wartości zostają
+                                    usunięte i przekazane na odpowiednie listy
+                                    zwrotne.
+                                </p>
+
+                                <p>
+                                    <strong>Wynik:</strong>
+                                    <span class="status-stopped">Opróżniony</span>.
+                                    Produkt trafia na listę pustych produktów.
+                                </p>
+                            </article>
+
+                        </div>
+                        
+                        <br>
+
+                        <p>
+                            Po przetworzeniu wszystkich czterech produktów lista
+                            poprawnych produktów zawiera produkty A i B,
+                            natomiast lista pustych produktów zawiera produkty C i D.
+                        </p>
+
+                        <p>
+                            Wszystkie wartości usunięte podczas naprawy produktów B
+                            i D zostają zgromadzone w obiekcie <code>ReturnData</code>,
+                            w listach odpowiadających ich typom.
+                        </p>
+                    </div>
+                </section>
+
+
+                <section class="task-section">
+                    <h3>Odzyskiwanie danych</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Fabryka chce odzyskiwać dane usuwane podczas
+                            naprawy produktów. Nie wolno ich po prostu
+                            wyrzucić.
+                        </p>
+
+                        <p>
+                            W tym celu interfejs
+                            <code>MachineControllerInterface</code>
+                            udostępnia metodę <code>getReturnData()</code>,
+                            która zwraca obiekt typu <code>ReturnData</code>.
+                        </p>
+
+                        <p>
+                            <code>ReturnData</code> jest rekordem
+                            zawierającym cztery niezależne listy:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong><code>integers</code>:</strong>
+                                odzyskane wartości typu
+                                <code>Integer</code>.
+                            </li>
+
+                            <li>
+                                <strong><code>doubles</code>:</strong>
+                                odzyskane wartości typu
+                                <code>Double</code>.
+                            </li>
+
+                            <li>
+                                <strong><code>characters</code>:</strong>
+                                odzyskane wartości typu
+                                <code>Character</code>.
+                            </li>
+
+                            <li>
+                                <strong><code>strings</code>:</strong>
+                                odzyskane wartości typu
+                                <code>String</code>.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Każda usunięta wartość powinna trafić na listę
+                            odpowiadającą jej typowi, niezależnie od
+                            oczekiwanego typu produktu.
+                        </p>
+
+                        <p>
+                            Metoda <code>getReturnData()</code> może być
+                            wywoływana wielokrotnie, nawet w trakcie
+                            przetwarzania kolejnych produktów.
+                            Po każdym wywołaniu należy wyczyścić
+                            wewnętrzne listy danych zwrotnych, ponieważ
+                            maszyna odbiera odzyskane wartości.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            kolejne wywołanie <code>getReturnData()</code>
+                            nie może ponownie zwrócić wartości, które
+                            zostały już odebrane. Jeśli od poprzedniego
+                            wywołania nie odzyskano nowych danych,
+                            zwróć obiekt <code>ReturnData</code>
+                            zawierający cztery puste listy.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Wymagane metody</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Implementując
+                            <code>MachineControllerInterface</code>,
+                            musisz zapewnić działanie wszystkich
+                            czterech metod.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>
+                                    <code>process(MagicProductInterface product)</code>
+                                </strong>
+                                — sprawdza produkt, klasyfikuje go,
+                                naprawia w razie potrzeby i gromadzi
+                                odzyskane wartości.
+                            </li>
+
+                            <li>
+                                <strong><code>getValidProducts()</code></strong>
+                                — zwraca listę wszystkich poprawnych
+                                produktów, w tym produktów naprawionych
+                                podczas wcześniejszych wywołań.
+                            </li>
+
+                            <li>
+                                <strong><code>getEmptyProducts()</code></strong>
+                                — zwraca listę wszystkich pustych
+                                produktów, w tym produktów opróżnionych
+                                podczas naprawy.
+                            </li>
+
+                            <li>
+                                <strong><code>getReturnData()</code></strong>
+                                — zwraca odzyskane wartości pogrupowane
+                                według typu i czyści wewnętrzne listy
+                                tych wartości.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Listy poprawnych i pustych produktów muszą
+                            zachowywać wyniki wcześniejszych wywołań
+                            metody <code>process()</code>. Samo pobranie
+                            ich zawartości nie może powodować utraty
+                            zgromadzonych produktów.
+                        </p>
+
+                        <p>
+                            Kontroler nie powinien tworzyć nowych
+                            produktów ani własnych implementacji
+                            <code>MagicProductInterface</code>.
+                            Należy modyfikować obiekty przekazane
+                            przez maszynę.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Gwarancje</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Podczas rozwiązywania zadania należy przyjąć,
+                            że wszystkie testy będą spełniały następujące
+                            warunki:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Poprawne obiekty:</strong>
+                                przekazane produkty będą poprawnymi
+                                instancjami dostarczonej implementacji
+                                <code>MagicProductInterface</code>.
+                            </li>
+
+                            <li>
+                                <strong>Typ danych:</strong>
+                                oczekiwany typ będzie określony przez
+                                <code>getExpectedType()</code> i będzie
+                                jednym z typów dostępnych w wyliczeniu
+                                <code>DataType</code>.
+                            </li>
+
+                            <li>
+                                <strong>Brak wartości:</strong>
+                                wartość <code>null</code> oznacza,
+                                że dane pole produktu jest puste.
+                            </li>
+
+                            <li>
+                                <strong>Poprawne wywołania:</strong>
+                                metody będą wywoływane zgodnie ze swoimi
+                                sygnaturami i wymaganymi typami argumentów.
+                            </li>
+
+                            <li>
+                                <strong>Dostarczone typy:</strong>
+                                interfejsy, enum i rekord wymagane do
+                                rozwiązania zadania zostaną dostarczone.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Nie trzeba tworzyć własnej implementacji
+                            produktu, zmieniać definicji dostarczonych
+                            typów ani dodawać obsługi przypadków,
+                            które nie wynikają z powyższych gwarancji.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozwiązanie powinno zostać przygotowane
+                            w <code>Java 17</code> i spełniać następujące
+                            wymagania:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Folder:</strong>
+                                wszystkie pliki rozwiązania umieść
+                                w folderze <code>Zadanie2</code>.
+                            </li>
+
+                            <li>
+                                <strong>Klasa:</strong>
+                                implementację przygotuj w klasie
+                                <code>MachineController</code>,
+                                która implementuje interfejs
+                                <code>MachineControllerInterface</code>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs kontrolera:</strong>
+                                pobierz plik
+                                <code>MachineControllerInterface.java</code>
+                                i wykorzystaj go w swoim rozwiązaniu.
+                                <a href="java/MachineControllerInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz MachineControllerInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs produktu:</strong>
+                                wykorzystaj dostarczony plik
+                                <code>MagicProductInterface.java</code>.
+                                Nie implementuj tego interfejsu samodzielnie.
+                                <a href="java/MagicProductInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz MagicProductInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Typy danych:</strong>
+                                wykorzystaj dostarczone wyliczenie
+                                <code>DataType</code> oraz rekord
+                                <code>ReturnData</code>.
+                                <a href="java/DataType.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz DataType.java
+                                </a>
+                                ·
+                                <a href="java/ReturnData.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz ReturnData.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Dokumentacja:</strong>
+                                szczegółowy opis wymaganych metod
+                                znajdziesz w dokumentacji JavaDoc.
+                                <a href="docs/MachineControllerInterface.html"
+                                class="javadoc-link"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                    Dokumentacja MachineControllerInterface
+                                </a>.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+
+                    <div class="qa-content">
+                        <p class="qa-empty">
+                            Na ten moment nie ma żadnych pytań
+                            ani odpowiedzi.
+                        </p>
+
+                        <!--
+                        Szablon pytania:
+
+                        <article class="qa-item">
+                            <div class="qa-question">
+                                <strong>Q:</strong>
+                                Treść pytania.
+                            </div>
+                            <div class="qa-answer">
+                                <strong>A:</strong>
+                                Treść odpowiedzi.
+                            </div>
+                        </article>
+                        -->
+                    </div>
+                </details>
+
+            </div>
+        </details>
+
+        <details class="task-card" data-deadline="2026-11-08T23:59:59">
+            <summary class="task-summary">
+                <span class="task-number">03</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 3 - Poszukiwacze pamięci</strong>
+
+                    <span class="task-description">
+                        Interfejs · Mapy · Porównywanie obiektów
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-11-08T23:59:59">
+                            08.11.2026, 23:59
+                        </time>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-points">
+                            Maks. 2 pkt
+                        </span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+
+                <div class="info-box task-story">
+                    <p>
+                        Witamy ponownie w Fabryce Cudów! Dzięki Twojej pracy
+                        mechanizm kontrolujący wartości działa już poprawnie,
+                        a kontroler jakości skutecznie odzyskuje dane
+                        z wadliwych produktów.
+                    </p>
+
+                    <p>
+                        Tym razem fabryka zmaga się z zupełnie nowym problemem.
+                        Na jednej z linii produkcyjnych powstają magiczne karty
+                        pamięci. Każda z nich przechowuje pewien zestaw znaków,
+                        ale system nie zapisuje informacji pozwalających
+                        jednoznacznie rozpoznać czy dwie karty zawierają
+                        identyczne dane.
+                    </p>
+
+                    <p>
+                        Co gorsza, karty udostępniają swoje znaki wyłącznie
+                        pojedynczo. Po odczytaniu wszystkich znaków nie można
+                        ponownie rozpocząć odczytu tej samej karty.
+                        Fabryka nie może więc pozwolić sobie na wielokrotne
+                        sprawdzanie tych samych danych.
+                    </p>
+
+                    <p>
+                        Twoim zadaniem jest przygotowanie mechanizmu, który
+                        będzie przyjmował karty pojedynczo, zapamiętywał
+                        te, dla których nie znaleziono jeszcze pary
+                        i łączył karty zawierające identyczne dane.
+                    </p>
+
+                    <p>
+                        Maszyna działa bez przerwy, dlatego znalezione pary
+                        muszą być dostępne do odebrania w dowolnym momencie,
+                        bez konieczności zatrzymywania dalszego przetwarzania.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Idea zadania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Każda magiczna karta jest reprezentowana przez
+                            interfejs <code>MemoryCardInterface</code>.
+                            Interfejs udostępnia metodę
+                            <code>readNextCharacter()</code>, która zwraca
+                            kolejny znak przechowywany na karcie.
+                        </p>
+
+                        <p>
+                            Znaki należy odczytywać tak długo, aż metoda
+                            zwróci <code>null</code>. Oznacza to, że wszystkie
+                            znaki danej karty zostały już odczytane.
+                        </p>
+
+                        <p>
+                            Karty nie udostępniają odpowiednich implementacji
+                            metod <code>equals()</code> i <code>hashCode()</code>,
+                            które pozwalałyby porównywać ich zawartość.
+                            Nie można zatem opierać rozwiązania na tych metodach.
+                        </p>
+
+                        <p>
+                            Dwie karty uznajemy za identyczne pod względem
+                            zawartości, jeżeli każdy znak występuje na obu
+                            kartach tyle samo razy, niezależnie od kolejności
+                            jego występowania.
+                        </p>
+
+                        <p>
+                            Przykładowo karty zawierające znaki
+                            <code>A, B, A, C</code> oraz
+                            <code>C, A, A, B</code> są identyczne.
+                            Karty zawierające <code>A, A, B</code> oraz
+                            <code>A, B, B</code> nie są identyczne,
+                            ponieważ różnią się liczbą wystąpień znaku
+                            <code>A</code> i <code>B</code>.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Zasady porównywania kart</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Podczas przetwarzania każdej karty należy
+                            odczytać jej zawartość i sprawdzić czy wśród
+                            wcześniej otrzymanych kart znajduje się
+                            identyczna karta, która nie ma jeszcze pary.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Karta bez pary:</strong>
+                                jeżeli nie znaleziono odpowiedniej pary,
+                                kartę należy zapamiętać. W przyszłości może
+                                ona zostać połączona z inną kartą.
+                            </li>
+
+                            <li>
+                                <strong>Znalezienie pary:</strong>
+                                jeżeli istnieje wcześniejsza karta o identycznej
+                                zawartości, należy połączyć obie karty w parę.
+                            </li>
+
+                            <li>
+                                <strong>Jedna para na kartę:</strong>
+                                każda karta może należeć najwyżej do jednej
+                                pary. Karta, która została już sparowana,
+                                nie może zostać wykorzystana ponownie.
+                            </li>
+
+                            <li>
+                                <strong>Odczyt danych:</strong>
+                                zawartość każdej karty należy odczytać tylko
+                                raz. Nie wolno zakładać, że po otrzymaniu
+                                <code>null</code> można rozpocząć odczyt
+                                od początku.
+                            </li>
+
+                            <li>
+                                <strong>Puste karty:</strong>
+                                dwie karty, które nie zawierają żadnych znaków,
+                                są identyczne i mogą utworzyć parę.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            porównujemy liczbę wystąpień każdego znaku,
+                            a nie tylko zbiór znaków. Karty
+                            <code>A, A, B</code> i <code>A, B</code>
+                            nie są identyczne.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Kolejność otrzymywania kart</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Karty są przekazywane do kontrolera pojedynczo.
+                            Kolejność ich otrzymania ma znaczenie dla sposobu
+                            zapisywania znalezionych par.
+                        </p>
+
+                        <p>
+                            Jeżeli karta <code>A</code> została otrzymana
+                            wcześniej niż karta <code>B</code>, a ich zawartość
+                            jest identyczna, para musi zostać zapisana jako:
+                        </p>
+
+                        <pre><code>A → B</code></pre>
+
+                        <p>
+                            Nie należy tworzyć drugiego wpisu
+                            <code>B → A</code>. Każda para występuje
+                            w wyniku tylko raz.
+                        </p>
+
+                        <p>
+                            Kluczem mapy jest zatem karta otrzymana wcześniej,
+                            a wartością karta otrzymana później.
+                        </p>
+
+                        <p>
+                            Nie należy również tworzyć pary pomiędzy kartami,
+                            które zostały już wcześniej sparowane.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład działania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Załóżmy, że maszyna przekazuje karty w następującej
+                            kolejności:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Karta A:</strong>
+                                <code>A, B, A</code>
+                            </li>
+
+                            <li>
+                                <strong>Karta B:</strong>
+                                <code>C, D</code>
+                            </li>
+
+                            <li>
+                                <strong>Karta C:</strong>
+                                <code>B, A, A</code>
+                            </li>
+
+                            <li>
+                                <strong>Karta D:</strong>
+                                <code>D, C</code>
+                            </li>
+
+                            <li>
+                                <strong>Karta E:</strong>
+                                <code>X, Y</code>
+                            </li>
+                        </ul>
+
+                        <p>
+                            Karty A i C zawierają identyczne dane, ponieważ
+                            obie mają dwa wystąpienia znaku <code>A</code>
+                            oraz jedno wystąpienie znaku <code>B</code>.
+                            Podobnie karty B i D zawierają identyczne dane.
+                        </p>
+
+                        <p>
+                            Karta E nie ma pary.
+                        </p>
+
+                        <h4>Przebieg przetwarzania</h4>
+
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Otrzymana karta</th>
+                                        <th>Wynik</th>
+                                        <th>Karty oczekujące na parę</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>A</td>
+                                        <td>Brak pary</td>
+                                        <td>A</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B</td>
+                                        <td>Brak pary</td>
+                                        <td>A, B</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>C</td>
+                                        <td>Para A → C</td>
+                                        <td>B</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>D</td>
+                                        <td>Para B → D</td>
+                                        <td>Brak</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>E</td>
+                                        <td>Brak pary</td>
+                                        <td>E</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>Wynik po przetworzeniu wszystkich kart</h4>
+
+                        <p>
+                            Mapa zawierająca znalezione pary:
+                        </p>
+
+                        <code>A → C</code>
+                        <br>
+                        <code>B → D</code>
+
+                        <p>
+                            Karta E pozostaje zapamiętana przez kontroler,
+                            ponieważ nie znaleziono dla niej pary.
+                        </p>
+
+                        <p>
+                            Mapa nie zawiera wpisów <code>C → A</code>
+                            ani <code>D → B</code>. Każda para jest zapisywana
+                            tylko raz, zgodnie z kolejnością otrzymania kart.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Odbieranie znalezionych par</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Fabryka chce móc odbierać znalezione pary
+                            w różnych momentach pracy maszyny. Nie należy
+                            czekać z przekazaniem wyników do chwili,
+                            w której wszystkie karty zostaną przetworzone.
+                        </p>
+
+                        <p>
+                            W tym celu interfejs
+                            <code>MemoryPairFinderInterface</code>
+                            udostępnia dwie metody:
+                            <code>process()</code> oraz <code>getPairs()</code>.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>
+                                    <code>process(MemoryCardInterface object)</code>:
+                                </strong>
+                                przyjmuje jedną kartę, odczytuje jej zawartość
+                                i próbuje znaleźć dla niej parę wśród
+                                wcześniej otrzymanych kart, które nie zostały
+                                jeszcze sparowane.
+                            </li>
+
+                            <li>
+                                <strong><code>getPairs()</code>:</strong>
+                                zwraca mapę par znalezionych od początku działania
+                                kontrolera.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Po wywołaniu <code>getPairs()</code> odebrane pary
+                            powinny nadal być zwracane podczas kolejnych wywołań
+                            tej metody.
+                        </p>
+
+                        <p>
+                            Odbieranie par nie może usuwać informacji o kartach,
+                            które nadal oczekują na parę.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład odbierania wyników w różnych momentach</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Załóżmy, że karty są przekazywane do kontrolera
+                            w następującej kolejności:
+                        </p>
+
+                        <code>process(A);</code>
+                        <br>
+                        <code>process(B);</code>
+
+                        <p>
+                            Jeżeli karty A i B nie są identyczne, wywołanie
+                            <code>getPairs()</code> zwróci pustą mapę.
+                            Obie karty pozostaną zapamiętane i będą mogły
+                            zostać sparowane z kartami otrzymanymi później.
+                        </p>
+
+                        <p>
+                            Następnie przekazujemy kolejne karty:
+                        </p>
+
+                        <code>process(C);</code>
+                        <br>
+                        <code>process(D);</code>
+
+                        <p>
+                            Jeżeli karta C jest identyczna z kartą A,
+                            a karta D jest identyczna z kartą B,
+                            mapa zwrócona przez drugie wywołanie
+                            <code>getPairs()</code> będzie zawierać:
+                        </p>
+
+                        <code>A → C</code>
+                        <br>
+                        <code>B → D</code>
+
+                        <p>
+                            Kolejne wywołanie <code>getPairs()</code>,
+                            bez wcześniejszego znalezienia nowych par,
+                            zwróci tę samą mapę.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Wymagane metody</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Należy zaimplementować interfejs
+                            <code>MemoryPairFinderInterface</code>
+                            zawierający następujące metody:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>
+                                    <code>process(MemoryCardInterface object)</code>
+                                </strong>
+                                — przetwarza pojedynczą kartę, odczytuje
+                                jej znaki i próbuje znaleźć dla niej parę.
+                                Jeżeli para nie istnieje, zapamiętuje kartę
+                                do późniejszego porównania.
+                            </li>
+
+                            <li>
+                                <strong><code>getPairs()</code></strong>
+                                — zwraca wszystkie pary odnalezione od początku
+                                działania kontolera. Każda para występuje
+                                tylko raz, a klucz jest kartą otrzymaną wcześniej.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Kontroler musi zachować informacje o kartach
+                            oczekujących na parę niezależnie od tego
+                            czy wywołano <code>getPairs()</code>.
+                        </p>
+
+                        <p>
+                            Po utworzeniu pary obie karty należy uznać
+                            za wykorzystane. Nie mogą one tworzyć kolejnych par.
+                        </p>
+
+                        <p>
+                            Rozwiązanie nie powinno tworzyć nowych kart
+                            ani implementować interfejsu
+                            <code>MemoryCardInterface</code>.
+                            Należy operować na obiektach przekazanych
+                            przez maszynę.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Gwarancje</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Podczas rozwiązywania zadania należy przyjąć,
+                            że wszystkie testy będą spełniały następujące
+                            warunki:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Poprawne obiekty:</strong>
+                                przekazane karty będą poprawnymi instancjami
+                                dostarczonej implementacji
+                                <code>MemoryCardInterface</code>.
+                            </li>
+
+                            <li>
+                                <strong>Odczyt znaków:</strong>
+                                metoda <code>readNextCharacter()</code>
+                                zwróci kolejne znaki, a po odczytaniu
+                                wszystkich znaków zwróci <code>null</code>.
+                            </li>
+
+                            <li>
+                                <strong>Jedno wystąpienie referencji:</strong>
+                                ta sama referencja do karty nie zostanie
+                                przekazana do kontrolera więcej niż jeden raz.
+                            </li>
+
+                            <li>
+                                <strong>Porównywanie zawartości:</strong>
+                                karty należy porównywać na podstawie liczby
+                                wystąpień poszczególnych znaków, a nie ich
+                                kolejności.
+                            </li>
+
+                            <li>
+                                <strong>Brak odpowiednich metod:</strong>
+                                nie należy zakładać, że metody
+                                <code>equals()</code> i <code>hashCode()</code>
+                                pozwalają porównywać zawartość kart.
+                            </li>
+
+                            <li>
+                                <strong>Poprawne wywołania:</strong>
+                                metody będą wywoływane zgodnie ze swoimi
+                                sygnaturami i wymaganymi typami argumentów.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Nie trzeba tworzyć własnej implementacji kart,
+                            zmieniać definicji dostarczonego interfejsu
+                            ani obsługiwać przypadków, które nie wynikają
+                            z powyższych gwarancji.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozwiązanie powinno zostać przygotowane
+                            w <code>Java 17</code> i spełniać następujące
+                            wymagania:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Folder:</strong>
+                                wszystkie pliki rozwiązania umieść
+                                w folderze <code>Zadanie3</code>.
+                            </li>
+
+                            <li>
+                                <strong>Klasa:</strong>
+                                implementację przygotuj w klasie
+                                <code>MemoryPairFinder</code>,
+                                która implementuje interfejs
+                                <code>MemoryPairFinderInterface</code>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs kontrolera:</strong>
+                                pobierz plik
+                                <code>MemoryPairFinderInterface.java</code>
+                                i wykorzystaj go w swoim rozwiązaniu.
+                                <a href="java/MemoryPairFinderInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz MemoryPairFinderInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs karty:</strong>
+                                wykorzystaj dostarczony plik
+                                <code>MemoryCardInterface.java</code>.
+                                Nie implementuj tego interfejsu samodzielnie.
+                                <a href="java/MemoryCardInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz MemoryCardInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Dokumentacja:</strong>
+                                szczegółowy opis wymaganych metod znajdziesz
+                                w dokumentacji JavaDoc.
+                                <a href="docs/MemoryPairFinderInterface.html"
+                                class="javadoc-link"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                    Dokumentacja MemoryPairFinderInterface
+                                </a>.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+
+                    <div class="qa-content">
+                        <p class="qa-empty">
+                            Na ten moment nie ma żadnych pytań
+                            ani odpowiedzi.
+                        </p>
+                    </div>
+                </details>
+
+            </div>
+        </details>
+
     </section>
 
     <footer>
-        Ostatnia aktualizacja: 19.10.2026.
+        Ostatnia aktualizacja: 25.10.2026.
         Strona wykonana przy wsparciu AI.
     </footer>
 
