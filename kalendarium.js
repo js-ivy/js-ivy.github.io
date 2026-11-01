@@ -29,7 +29,7 @@ const TASKS = [
     {
         id: 1,
         published: "2026-10-18",
-        firstDays: 14,
+        firstDays: 21,
         secondDays: 14
     },
     {
