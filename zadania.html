@@ -1613,6 +1613,1088 @@
             </div>
         </details>
 
+        <details class="task-card" data-deadline="2026-11-15T23:59:59">
+            <summary class="task-summary">
+                <span class="task-number">04</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 4 - System aukcyjny</strong>
+
+                    <span class="task-description">
+                        Interfejs · Zbiory · Mapy · Porównywanie obiektów · Zarządzanie stanem
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-11-15T23:59:59">
+                            15.11.2026, 23:59
+                        </time>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-points">
+                            Maks. 2 pkt
+                        </span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+
+                <div class="info-box task-story">
+                    <p>
+                        Witamy ponownie w Fabryce Cudów! Dzięki Twojej pracy
+                        wszystkie dotychczasowe mechanizmy działają już
+                        poprawnie. Fabryka potrafi kontrolować wartości,
+                        naprawiać wadliwe produkty oraz odnajdywać identyczne
+                        karty pamięci.
+                    </p>
+
+                    <p>
+                        Tym razem otrzymujesz zadanie związane z zupełnie
+                        nowym przedsięwzięciem. Fabryka postanowiła zorganizować
+                        aukcję wyjątkowych przedmiotów, jednak nie dysponuje
+                        jeszcze systemem, który pozwalałby zarządzać
+                        uczestnikami i składanymi przez nich ofertami.
+                    </p>
+
+                    <p>
+                        Potrzebny jest mechanizm, który będzie rejestrował
+                        klientów, przyjmował ich oferty, zapamiętywał
+                        najwyższe zaoferowane kwoty i kontrolował przebieg
+                        całej aukcji.
+                    </p>
+
+                    <p>
+                        Szczególnym wyzwaniem jest obsługa klientów, którzy
+                        mogą w dowolnym momencie wycofać się z licytacji.
+                        Nie oznacza to jednak, że ich wcześniejsze oferty
+                        przestają obowiązywać!
+                    </p>
+
+                    <p>
+                        Twoim zadaniem jest przygotowanie interfejsu systemu
+                        aukcyjnego, który będzie odpowiedzialny za wszystkie
+                        te operacje i zapewni prawidłowy przebieg jednej
+                        licytacji.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Idea zadania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            System aukcyjny jest reprezentowany przez interfejs
+                            <code>AuctionSystemInterface</code>.
+                            Jego zadaniem jest zarządzanie klientami oraz
+                            ofertami składanymi podczas jednej aukcji.
+                        </p>
+
+                        <p>
+                            Każdy klient reprezentowany jest przez interfejs
+                            <code>Client</code>, który zapewnia poprawne
+                            działanie metod <code>equals()</code> i
+                            <code>hashCode()</code>.
+                        </p>
+
+                        <p>
+                            Oferty reprezentowane są przez interfejs
+                            <code>Offer</code>, udostępniający metodę
+                            <code>getOfferValue()</code>. Zwraca ona obiekt
+                            typu <code>OfferValue</code>, który implementuje
+                            interfejs <code>Comparable&lt;OfferValue&gt;</code>.
+                        </p>
+
+                        <p>
+                            Informacja o kliencie składającym ofertę oraz
+                            sama oferta przekazywane są w obiekcie
+                            <code>AuctionOffer</code>.
+                        </p>
+
+                        <p>
+                            W systemie występują trzy podstawowe grupy
+                            informacji:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Zarejestrowani klienci:</strong>
+                                wszyscy klienci, którzy zostali dodani
+                                do systemu.
+                            </li>
+
+                            <li>
+                                <strong>Aktywni uczestnicy:</strong>
+                                klienci, którzy nie wycofali się jeszcze
+                                z bieżącej aukcji.
+                            </li>
+
+                            <li>
+                                <strong>Najwyższe oferty:</strong>
+                                najwyższe wartości ofert zapamiętane
+                                osobno dla każdego klienta.
+                            </li>
+                        </ul>
+
+                        <p>
+                            System przechowuje również informację o aktualnie
+                            najwyższej zaakceptowanej ofercie, jej autorze
+                            oraz stanie aukcji.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            nie należy utożsamiać zaakceptowania oferty
+                            ze zmianą aktualnego lidera. Oferta może zostać
+                            zaakceptowana, mimo że nie zmieni żadnej
+                            z zapamiętanych najwyższych wartości.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Rejestracja klientów</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Przed rozpoczęciem składania ofert klient musi
+                            zostać zarejestrowany w systemie za pomocą metody
+                            <code>registerClient(Client client)</code>.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Pierwsza rejestracja:</strong>
+                                klient zostaje dodany do zbioru
+                                zarejestrowanych klientów oraz zbioru
+                                aktywnych uczestników aukcji.
+                            </li>
+
+                            <li>
+                                <strong>Oferta niezarejestrowanego klienta:</strong>
+                                system ignoruje taką ofertę. Nie może ona
+                                wpłynąć na stan aukcji ani na przechowywane
+                                informacje.
+                            </li>
+
+                            <li>
+                                <strong>Ponowna rejestracja:</strong>
+                                nie jest wymagana. System nie powinien
+                                tworzyć kolejnych wpisów dla tego samego
+                                klienta.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Do identyfikowania klientów należy wykorzystywać
+                            poprawnie zaimplementowane metody
+                            <code>equals()</code> i <code>hashCode()</code>.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Uwaga:</strong>
+                            dwaj klienci uznawani za równych przez
+                            <code>equals()</code> powinni być traktowani
+                            jako ten sam klient.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przyjmowanie ofert</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Oferty przekazywane są do systemu za pomocą metody
+                            <code>makeOffer(AuctionOffer auctionOffer)</code>.
+                        </p>
+
+                        <p>
+                            Każda oferta zawiera informację o kliencie,
+                            który ją składa, oraz obiekt implementujący
+                            interfejs <code>Offer</code>.
+                        </p>
+
+                        <p>
+                            Wartość oferty pobierana jest za pomocą metody
+                            <code>getOfferValue()</code>.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Pierwsza oferta:</strong>
+                                może mieć dowolną wartość. Nie obowiązuje
+                                minimalna kwota początkowa.
+                            </li>
+
+                            <li>
+                                <strong>Kolejne oferty:</strong>
+                                nie muszą być większe od poprzednich ofert
+                                tego samego klienta ani od aktualnie
+                                najwyższej oferty w aukcji.
+                            </li>
+
+                            <li>
+                                <strong>Oferta niższa od aktualnego maksimum:</strong>
+                                zostaje zaakceptowana, ale nie zmienia
+                                aktualnej najwyższej oferty ani lidera.
+                            </li>
+
+                            <li>
+                                <strong>Oferta równa aktualnemu maksimum:</strong>
+                                zostaje zaakceptowana, ale nie zmienia
+                                aktualnego lidera.
+                            </li>
+
+                            <li>
+                                <strong>Oferta wyższa od aktualnego maksimum:</strong>
+                                zostaje zaakceptowana i powoduje zmianę
+                                aktualnej najwyższej oferty oraz lidera.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Do porównywania wartości ofert należy wykorzystywać
+                            wyłącznie metodę <code>compareTo()</code>.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            system nie odrzuca ofert tylko dlatego, że ich
+                            wartość jest niższa od aktualnego maksimum.
+                            Takie oferty są przyjmowane, ale nie zmieniają
+                            najwyższych zapamiętanych wartości.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Zapamiętywanie najwyższych ofert</h3>
+
+                    <div class="info-box">
+                        <p>
+                            System musi przechowywać najwyższą zaakceptowaną
+                            ofertę każdego klienta.
+                        </p>
+
+                        <p>
+                            Informacje te udostępniane są za pomocą metody
+                            <code>getHighestBids()</code>, która zwraca mapę
+                            zawierającą klientów oraz odpowiadające im
+                            najwyższe wartości ofert.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Pierwsza oferta klienta:</strong>
+                                zostaje zapisana jako jego najwyższa oferta.
+                            </li>
+
+                            <li>
+                                <strong>Wyższa kolejna oferta:</strong>
+                                zastępuje dotychczasową najwyższą ofertę
+                                tego klienta.
+                            </li>
+
+                            <li>
+                                <strong>Niższa kolejna oferta:</strong>
+                                nie zmienia dotychczas zapamiętanej wartości.
+                            </li>
+
+                            <li>
+                                <strong>Równa kolejna oferta:</strong>
+                                nie zmienia dotychczas zapamiętanej wartości.
+                            </li>
+
+                            <li>
+                                <strong>Brak ofert:</strong>
+                                klient nie powinien posiadać wpisu w mapie.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Analogiczna zasada obowiązuje dla najwyższej
+                            oferty w całej aukcji.
+                        </p>
+
+                        <p>
+                            Aktualna najwyższa oferta oraz jej autor
+                            zmieniają się wyłącznie wtedy, gdy nowa oferta
+                            ma wartość ściśle większą od dotychczasowego
+                            maksimum.
+                        </p>
+
+                        <p>
+                            Oznacza to, że w przypadku remisu liderem
+                            pozostaje klient, który jako pierwszy złożył
+                            ofertę o aktualnie najwyższej wartości.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Uwaga:</strong>
+                            najwyższe oferty klientów oraz najwyższa oferta
+                            całej aukcji są od siebie niezależnymi
+                            informacjami. Aktualizacja oferty jednego klienta
+                            nie oznacza automatycznie zmiany lidera.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Wycofanie z aukcji</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Klient może w dowolnym momencie wycofać się
+                            z dalszego udziału w aukcji.
+                        </p>
+
+                        <p>
+                            Wycofanie następuje poprzez złożenie oferty,
+                            której metoda <code>getOfferValue()</code>
+                            zwraca <code>null</code>.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Usunięcie z aktywnych uczestników:</strong>
+                                klient zostaje usunięty ze zbioru
+                                <code>activeBidders</code>.
+                            </li>
+
+                            <li>
+                                <strong>Historia ofert:</strong>
+                                wszystkie dotychczasowe oferty klienta
+                                pozostają w systemie.
+                            </li>
+
+                            <li>
+                                <strong>Najwyższa oferta klienta:</strong>
+                                pozostaje bez zmian.
+                            </li>
+
+                            <li>
+                                <strong>Wycofany lider:</strong>
+                                jego oferta nadal obowiązuje i może
+                                pozostać najwyższą ofertą w całej aukcji.
+                            </li>
+
+                            <li>
+                                <strong>Ponowny udział:</strong>
+                                wycofany klient nie może ponownie
+                                uczestniczyć w aukcji.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            wycofanie się klienta nie oznacza anulowania
+                            jego dotychczasowych ofert. Nawet jeżeli
+                            klient przestanie być aktywnym uczestnikiem,
+                            nadal może zostać zwycięzcą aukcji.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Stan aukcji i warunki zakończenia</h3>
+
+                    <div class="info-box">
+                        <p>
+                            System przechowuje aktualny stan aukcji
+                            reprezentowany przez wyliczenie
+                            <code>AuctionStatus</code>.
+                        </p>
+
+                        <p>
+                            Dostępne są dwa stany:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong><code>INPROGRESS</code>:</strong>
+                                aukcja jest w trakcie realizacji i może
+                                przyjmować kolejne oferty.
+                            </li>
+
+                            <li>
+                                <strong><code>FINISHED</code>:</strong>
+                                aukcja została zakończona i nie przyjmuje
+                                już kolejnych ofert.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Początkowo każda aukcja znajduje się w stanie
+                            <code>INPROGRESS</code>.
+                        </p>
+
+                        <p>
+                            Aukcja może zostać zakończona automatycznie
+                            w dwóch przypadkach:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Pozostaje jeden aktywny uczestnik:</strong>
+                                jeżeli w aukcji pozostaje dokładnie jeden
+                                aktywny uczestnik i jest on aktualnym
+                                liderem, aukcja zostaje zakończona.
+                            </li>
+
+                            <li>
+                                <strong>Brak aktywnych uczestników:</strong>
+                                jeżeli wszyscy uczestnicy wycofają się
+                                z aukcji, aukcja zostaje zakończona.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Zwycięzcą jest klient, który złożył najwyższą
+                            zaakceptowaną ofertę, niezależnie od tego,
+                            czy nadal pozostaje aktywnym uczestnikiem.
+                        </p>
+
+                        <p>
+                            Jeżeli aukcja zostanie zakończona, wszystkie
+                            kolejne wywołania <code>makeOffer()</code>
+                            powinny zostać zignorowane.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Uwaga:</strong>
+                            jeżeli aktualny lider wycofa się z aukcji,
+                            ale pozostaną inni aktywni uczestnicy,
+                            aukcja nadal trwa. Pozostali uczestnicy
+                            mogą złożyć wyższe oferty i przejąć prowadzenie.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład działania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Załóżmy, że w systemie zarejestrowano trzech
+                            klientów: A, B oraz C.
+                        </p>
+
+                        <p>
+                            Następnie klienci składają następujące oferty:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Klient A:</strong>
+                                300
+                            </li>
+
+                            <li>
+                                <strong>Klient B:</strong>
+                                200
+                            </li>
+
+                            <li>
+                                <strong>Klient C:</strong>
+                                250
+                            </li>
+
+                            <li>
+                                <strong>Klient B:</strong>
+                                280
+                            </li>
+
+                            <li>
+                                <strong>Klient C:</strong>
+                                300
+                            </li>
+
+                            <li>
+                                <strong>Klient A:</strong>
+                                350
+                            </li>
+                        </ul>
+
+                        <h4>Przebieg aukcji</h4>
+
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operacja</th>
+                                        <th>Najwyższa oferta</th>
+                                        <th>Lider</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>Stan początkowy</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>A oferuje 300</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B oferuje 200</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>C oferuje 250</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B oferuje 280</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>C oferuje 300</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>A oferuje 350</td>
+                                        <td>350</td>
+                                        <td>A</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            Warto zwrócić uwagę na ofertę klienta C równą
+                            300. Mimo że osiągnęła ona aktualnie najwyższą
+                            wartość, liderem nadal pozostaje A, ponieważ
+                            jako pierwszy złożył ofertę o wartości 300.
+                        </p>
+
+                        <p>
+                            Po zakończeniu powyższych operacji mapa
+                            <code>getHighestBids()</code> powinna zawierać:
+                        </p>
+
+                        <code>A → 350</code>
+                        <br>
+                        <code>B → 280</code>
+                        <br>
+                        <code>C → 300</code>
+
+                        <p>
+                            Aktualna najwyższa oferta wynosi
+                            <code>350</code>, a liderem pozostaje klient A.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład wycofania lidera</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozważmy sytuację, w której klient A oferuje
+                            300, a klient B oferuje 200.
+                        </p>
+
+                        <p>
+                            Następnie klient A decyduje się wycofać
+                            z aukcji.
+                        </p>
+
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operacja</th>
+                                        <th>Najwyższa oferta</th>
+                                        <th>Lider</th>
+                                        <th>Aktywni uczestnicy</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>A oferuje 300</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>A, B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B oferuje 200</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>A, B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>A wycofuje się</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B oferuje 310</td>
+                                        <td>310</td>
+                                        <td>B</td>
+                                        <td>B</td>
+                                        <td><span class="status-stopped">FINISHED</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            Po wycofaniu A jego oferta nadal obowiązuje.
+                            Aukcja nie zostaje zakończona, ponieważ
+                            B nadal może przebić dotychczasowe maksimum.
+                        </p>
+
+                        <p>
+                            Gdy B składa ofertę 310, staje się nowym
+                            liderem. Ponieważ jest jedynym aktywnym
+                            uczestnikiem i jednocześnie aktualnym liderem,
+                            aukcja zostaje automatycznie zakończona.
+                        </p>
+
+                        <p>
+                            Zwycięzcą zostaje klient B.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład zakończenia przez wycofanie wszystkich uczestników</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozważmy teraz inny przebieg aukcji.
+                            Klient A składa ofertę 300, a klient B
+                            składa ofertę 200.
+                        </p>
+
+                        <p>
+                            Klient A wycofuje się, ale B nie chce
+                            zaoferować więcej niż 250.
+                        </p>
+
+                        <p>
+                            B składa więc ofertę 250, a następnie
+                            również wycofuje się z aukcji.
+                        </p>
+
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operacja</th>
+                                        <th>Najwyższa oferta</th>
+                                        <th>Lider</th>
+                                        <th>Aktywni uczestnicy</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>A oferuje 300</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>A, B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B oferuje 200</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>A, B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>A wycofuje się</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B oferuje 250</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>B</td>
+                                        <td><span class="status-active">INPROGRESS</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>B wycofuje się</td>
+                                        <td>300</td>
+                                        <td>A</td>
+                                        <td>Brak</td>
+                                        <td><span class="status-stopped">FINISHED</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            W momencie wycofania B w aukcji nie pozostaje
+                            już żaden aktywny uczestnik.
+                        </p>
+
+                        <p>
+                            Aukcja zostaje zakończona, a zwycięzcą zostaje
+                            klient A, mimo że wcześniej sam wycofał się
+                            z licytacji.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            zwycięzcą zawsze jest autor najwyższej
+                            zaakceptowanej oferty. Nie musi to być
+                            klient, który pozostaje aktywnym uczestnikiem
+                            w chwili zakończenia aukcji.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Wymagane metody</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Należy zaimplementować interfejs
+                            <code>AuctionSystemInterface</code>,
+                            który udostępnia następujące metody:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>
+                                    <code>registerClient(Client client)</code>
+                                </strong>
+                                — rejestruje klienta w systemie.
+                                Dodaje go do zbioru zarejestrowanych
+                                klientów oraz aktywnych uczestników.
+                            </li>
+
+                            <li>
+                                <strong>
+                                    <code>makeOffer(AuctionOffer auctionOffer)</code>
+                                </strong>
+                                — przyjmuje ofertę klienta, aktualizuje
+                                jego najwyższą ofertę oraz w razie potrzeby
+                                aktualnego lidera i najwyższą ofertę aukcji.
+                                Obsługuje również wycofanie uczestnika
+                                oraz automatyczne zakończenie aukcji.
+                            </li>
+
+                            <li>
+                                <strong><code>getHighestBid()</code></strong>
+                                — zwraca najwyższą zaakceptowaną wartość
+                                oferty w całej aukcji lub <code>null</code>,
+                                jeżeli nie przyjęto jeszcze żadnej oferty.
+                            </li>
+
+                            <li>
+                                <strong><code>getAuctionLeader()</code></strong>
+                                — zwraca klienta będącego autorem
+                                najwyższej zaakceptowanej oferty
+                                lub <code>null</code>, jeżeli nie
+                                wyłoniono jeszcze lidera.
+                            </li>
+
+                            <li>
+                                <strong><code>getAuctionStatus()</code></strong>
+                                — zwraca aktualny stan aukcji.
+                            </li>
+
+                            <li>
+                                <strong><code>getRegisteredClients()</code></strong>
+                                — zwraca zbiór wszystkich klientów
+                                zarejestrowanych w systemie.
+                            </li>
+
+                            <li>
+                                <strong><code>getActiveBidders()</code></strong>
+                                — zwraca zbiór klientów, którzy
+                                nie wycofali się jeszcze z aukcji.
+                            </li>
+
+                            <li>
+                                <strong><code>getHighestBids()</code></strong>
+                                — zwraca mapę zawierającą najwyższą
+                                zaakceptowaną ofertę każdego klienta,
+                                który złożył przynajmniej jedną ofertę.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Metody pobierające informacje o stanie aukcji
+                            nie powinny powodować zmiany jej stanu.
+                        </p>
+
+                        <p>
+                            Pobieranie kolekcji nie może powodować utraty
+                            zgromadzonych danych. System powinien zachować
+                            wszystkie informacje o klientach i ofertach
+                            przez cały czas swojego działania.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Gwarancje</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Podczas rozwiązywania zadania należy przyjąć,
+                            że wszystkie testy będą spełniały następujące
+                            warunki:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Poprawne obiekty:</strong>
+                                wszystkie przekazane obiekty będą
+                                poprawnymi instancjami dostarczonych
+                                implementacji interfejsów
+                                <code>Client</code> i <code>Offer</code>.
+                            </li>
+
+                            <li>
+                                <strong>Porównywanie klientów:</strong>
+                                implementacje <code>Client</code>
+                                zapewniają poprawne działanie metod
+                                <code>equals()</code> i <code>hashCode()</code>.
+                            </li>
+
+                            <li>
+                                <strong>Porównywanie ofert:</strong>
+                                wartości ofert będą poprawnie
+                                implementować metodę
+                                <code>compareTo()</code>.
+                            </li>
+
+                            <li>
+                                <strong>Wartości ofert:</strong>
+                                wartości zwracane przez
+                                <code>getOfferValue()</code> będą
+                                poprawnymi obiektami typu
+                                <code>OfferValue</code> albo
+                                <code>null</code> w przypadku wycofania.
+                            </li>
+
+                            <li>
+                                <strong>Aktywni uczestnicy:</strong>
+                                podczas trwania aukcji zawsze będzie
+                                istniał co najmniej jeden aktywny
+                                uczestnik posiadający zaakceptowaną ofertę.
+                            </li>
+
+                            <li>
+                                <strong>Brak pustej aukcji:</strong>
+                                nie trzeba obsługiwać sytuacji,
+                                w której aukcja rozpoczyna się bez
+                                możliwości wyłonienia aktywnego
+                                uczestnika składającego ofertę.
+                            </li>
+
+                            <li>
+                                <strong>Wiele ofert:</strong>
+                                klient może składać dowolną liczbę
+                                ofert, dopóki pozostaje aktywnym
+                                uczestnikiem aukcji.
+                            </li>
+
+                            <li>
+                                <strong>Wycofanie:</strong>
+                                klient może wycofać się z aukcji
+                                tylko raz. Po wycofaniu nie będzie
+                                ponownie uczestniczył w licytacji.
+                            </li>
+
+                            <li>
+                                <strong>Poprawne wywołania:</strong>
+                                metody będą wywoływane zgodnie ze
+                                swoimi sygnaturami i wymaganymi
+                                typami argumentów.
+                            </li>
+
+                            <li>
+                                <strong>Dostarczone typy:</strong>
+                                wszystkie interfejsy, rekordy
+                                i wyliczenia wymagane do rozwiązania
+                                zadania zostaną dostarczone.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Nie trzeba tworzyć własnych implementacji
+                            interfejsów <code>Client</code>,
+                            <code>Offer</code> ani
+                            <code>OfferValue</code>.
+                        </p>
+
+                        <p>
+                            Nie należy również modyfikować definicji
+                            dostarczonych typów.
+                        </p>
+
+                        <p>
+                            Nie trzeba dodawać obsługi błędów dla
+                            przypadków, które nie zostały objęte
+                            powyższymi gwarancjami.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozwiązanie powinno zostać przygotowane
+                            w <code>Java 17</code> i spełniać następujące
+                            wymagania:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Folder:</strong>
+                                wszystkie pliki rozwiązania umieść
+                                w folderze <code>Zadanie4</code>.
+                            </li>
+
+                            <li>
+                                <strong>Klasa:</strong>
+                                implementację przygotuj w klasie
+                                <code>AuctionSystem</code>,
+                                która implementuje interfejs
+                                <code>AuctionSystemInterface</code>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs systemu:</strong>
+                                pobierz plik
+                                <code>AuctionSystemInterface.java</code>
+                                i wykorzystaj go w swoim rozwiązaniu.
+                                <a href="java/AuctionSystemInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    Pobierz AuctionSystemInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Dostarczone interfejsy:</strong>
+                                wykorzystaj dostarczone pliki
+                                <a href="java/Client.java"
+                                class="javadoc-link"
+                                download>
+                                    Client.java
+                                </a>, 
+                                <a href="java/Offer.java"
+                                class="javadoc-link"
+                                download>
+                                    Offer.java
+                                </a>,
+                                <a href="java/OfferValue.java"
+                                class="javadoc-link"
+                                download>
+                                    OfferValue.java
+                                </a>,
+                                <a href="java/AuctionOffer.java"
+                                class="javadoc-link"
+                                download>
+                                    AuctionOffer.java
+                                </a>,
+                                <a href="java/AuctionStatus.java"
+                                class="javadoc-link"
+                                download>
+                                    AuctionStatus.java
+                                </a>.
+                                Nie implementuj dostarczonych interfejsów 
+                                samodzielnie.
+                            </li>
+
+                            <li>
+                                <strong>Dokumentacja:</strong>
+                                szczegółowy opis wymaganych metod
+                                znajdziesz w dokumentacji JavaDoc.
+                                <a href="docs/AuctionSystemInterface.html"
+                                class="javadoc-link"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                    Dokumentacja AuctionSystemInterface
+                                </a>.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            Twoim zadaniem jest implementacja wyłącznie
+                            klasy <code>AuctionSystem</code>.
+                            Nie należy tworzyć własnych implementacji
+                            pozostałych interfejsów, rekordów ani
+                            wyliczeń.
+                        </p>
+                    </div>
+                </section>
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+
+                    <div class="qa-content">
+                        <p class="qa-empty">
+                            Na ten moment nie ma żadnych pytań
+                            ani odpowiedzi.
+                        </p>
+                    </div>
+                </details>
+
+            </div>
+        </details>
+
     </section>
 
     <footer>
