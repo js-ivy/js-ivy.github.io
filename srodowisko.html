@@ -115,38 +115,28 @@
         </div>
 
 
-        <h2 class="section-title">III. Środowisko testowe</h2>
+        <h2 class="section-title">III. Testy i sposób oceniania</h2>
 
         <div class="info-box">
 
             <p>
-                Do sprawdzania rozwiązań wykorzystywany jest bot działający
-                bezpośrednio z GitHubem.
+                Rozwiązania zadań nadal należy umieszczać w swoim
+                <strong>prywatnym repozytorium GitHub</strong>, do którego
+                dostęp ma prowadzący.
             </p>
 
             <p>
-                Bot otrzymuje dostęp
-                <strong>wyłącznie do repozytorium z kodem zadań</strong>.
-                Nie należy udostępniać mu dostępu do innych repozytoriów.
+                Do każdego zadania zostaną udostępnione
+                <strong>testy publiczne</strong>. Będzie można pobrać je
+                z publicznego repozytorium GitHub i samodzielnie uruchomić
+                przed oddaniem rozwiązania.
             </p>
 
-            <div class="bot-link">
-                <a
-                    href="https://github.com/apps/ivytestbot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="bot-link-icon">↗</span>
-
-                    <div>
-                        <strong>Przejdź do instalacji bota</strong>
-                        <span>
-                            Otwórz stronę bota GitHub i skonfiguruj dostęp
-                            do swojego repozytorium.
-                        </span>
-                    </div>
-                </a>
-            </div>
+            <p>
+                Publiczne repozytorium będzie zawierało wszystkie niezbędne
+                pliki umieszczone w odpowiednich folderach oraz czytelny plik
+                <strong>README</strong> z instrukcją uruchamiania testów.
+            </p>
 
         </div>
 
@@ -155,10 +145,10 @@
             <div class="check-item">
                 <span class="check-icon">1</span>
                 <div>
-                    <h3>Zainstaluj bota GitHub</h3>
+                    <h3>Pobierz testy publiczne</h3>
                     <p>
-                        Bot musi zostać zainstalowany w ramach konta GitHub
-                        i otrzymać dostęp do odpowiedniego repozytorium.
+                        Testy oraz potrzebne pliki pobierz z publicznego
+                        repozytorium GitHub przygotowanego dla zadań.
                     </p>
                 </div>
             </div>
@@ -166,11 +156,11 @@
             <div class="check-item">
                 <span class="check-icon">2</span>
                 <div>
-                    <h3>Ogranicz dostęp do jednego repozytorium</h3>
+                    <h3>Uruchom testy lokalnie</h3>
                     <p>
-                        Podczas instalacji należy wybrać opcję ograniczającą
-                        dostęp bota do <strong>jednego, konkretnego repozytorium</strong>
-                        zawierającego rozwiązania zadań.
+                        Postępuj zgodnie z instrukcją w pliku
+                        <strong>README</strong>. Przed oddaniem rozwiązania
+                        upewnij się, że wszystkie testy publiczne przechodzą.
                     </p>
                 </div>
             </div>
@@ -178,7 +168,7 @@
         </div>
 
 
-        <h2 class="section-title">Jak działa środowisko testowe?</h2>
+        <h2 class="section-title">Jak wygląda sprawdzanie rozwiązania?</h2>
 
         <div class="process">
 
@@ -186,10 +176,10 @@
                 <span class="process-number">1</span>
 
                 <div>
-                    <h3>Przesyłasz kod</h3>
+                    <h3>Tworzysz rozwiązanie</h3>
                     <p>
-                        Rozwiązanie zadania umieszczasz w swoim repozytorium
-                        GitHub.
+                        Kod umieszczasz w odpowiednim folderze swojego
+                        prywatnego repozytorium GitHub.
                     </p>
                 </div>
             </div>
@@ -200,10 +190,11 @@
                 <span class="process-number">2</span>
 
                 <div>
-                    <h3>Bot pobiera kod</h3>
+                    <h3>Sprawdzasz przypadki publiczne</h3>
                     <p>
-                        Środowisko testowe pobiera odpowiedni kod
-                        z Twojego repozytorium.
+                        Uruchamiasz udostępnione testy obejmujące proste
+                        przypadki oraz przypadki brzegowe, które rozwiązanie
+                        powinno obsługiwać.
                     </p>
                 </div>
             </div>
@@ -214,10 +205,11 @@
                 <span class="process-number">3</span>
 
                 <div>
-                    <h3>Uruchamiane są testy</h3>
+                    <h3>Rozwiązanie jest oceniane</h3>
                     <p>
-                        Kod jest uruchamiany w środowisku testowym,
-                        a przygotowane testy sprawdzają poprawność rozwiązania.
+                        Po terminie prowadzący uruchamia testy prywatne. Są one
+                        bardziej rozbudowane i łączą przypadki sprawdzane
+                        przez testy publiczne w większe bloki.
                     </p>
                 </div>
             </div>
@@ -228,10 +220,10 @@
                 <span class="process-number">4</span>
 
                 <div>
-                    <h3>Otrzymujesz wynik</h3>
+                    <h3>Otrzymujesz ocenę</h3>
                     <p>
-                        Wynik testów jest zwracany w zamkniętym wątku
-                        <strong>GitHub Issues</strong>.
+                        Ocena jest ustalana na podstawie poprawności rozwiązania
+                        zweryfikowanej testami prywatnymi.
                     </p>
                 </div>
             </div>
@@ -241,22 +233,25 @@
 
         <div class="info-box">
 
-            <h2>Automatyczne sprawdzanie zmian</h2>
+            <h2>Gwarancja zgodności testów</h2>
 
             <p>
-                Jeżeli dla danego zadania dostępne są już testy,
-                środowisko testowe automatycznie monitoruje repozytorium.
+                Gwarantuję, że jeżeli rozwiązanie przechodzi
+                wszystkie testy publiczne, przejdzie również testy prywatne.
             </p>
 
             <p>
-                Bot <strong>okresowo</strong> sprawdza
-                czy w repozytorium pojawiła się zmiana kodu.
+                Jeżeli prawidłowe rozwiązanie przejdzie testy publiczne,
+                lecz nie przejdzie testów prywatnych z powodu brakującego
+                przypadku w zestawie publicznym, testy publiczne zostaną
+                uzupełnione o ten przypadek.
             </p>
 
             <p>
-                Jeżeli kod został zmieniony, bot uruchamia testy
-                <strong>wyłącznie tych zadań, których kod został zmieniony</strong>.
-                Nie są ponownie uruchamiane testy wszystkich zadań.
+                W takiej sytuacji <strong>II termin zostanie przedłużony
+                o tydzień</strong>. Rozwiązanie, które od początku było
+                prawidłowe, zostanie normalnie ocenione podczas pierwszego
+                sprawdzenia II terminu i nie będzie wymagało ponownego oddania.
             </p>
 
         </div>
@@ -274,16 +269,15 @@
             </p>
 
             <p>
-                Jest to <strong>wymagane przez środowisko testowe</strong>,
-                ponieważ bot wykorzystuje nazwę folderu do określenia,
-                którego zadania dotyczą zmiany i jakie testy należy uruchomić.
+                Jest to <strong>wymagane przez testy</strong>, ponieważ ich
+                konfiguracja korzysta z ustalonej struktury folderów.
             </p>
 
             <p>
-                Dodatkowo klasa implementująca rozwiązanie również 
-                <strong>będzie wymagała określonej nazwy</strong>, ponieważ w
-                innym przypadku testy nie mogłby być uniwersalne.             
-	    </p>
+                Dodatkowo klasa implementująca rozwiązanie również
+                <strong>będzie wymagała określonej nazwy</strong>, ponieważ
+                w innym przypadku testy nie mogłyby być uniwersalne.
+            </p>
 
 
         </div>
@@ -336,7 +330,7 @@
 
 
     <footer>
-        Ostatnia aktualizacja: 01.11.2026.
+        Ostatnia aktualizacja: 04.11.2026.
         Strona wykonana przy wsparciu AI.
     </footer>
 
