@@ -2695,10 +2695,547 @@
             </div>
         </details>
 
+        <details class="task-card" data-deadline="2026-11-22T23:59:59">
+            <summary class="task-summary">
+                <span class="task-number">05</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 5 - Szyfr z ekspedycji</strong>
+
+                    <span class="task-description">
+                        Wyjątki · Wyszukiwanie binarne · Mapy · Zarządzanie stanem
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-11-22T23:59:59">
+                            22.11.2026, 23:59
+                        </time>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+
+                        <span class="deadline-separator">·</span>
+
+                        <span class="task-points">
+                            Maks. 2 pkt
+                        </span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+
+                <div class="info-box task-story">
+                    <p>
+                        Po zakończeniu aukcji Fabryka Cudów przeznaczyła
+                        część pozyskanych środków na ekspedycję poszukującą
+                        rzadkich materiałów i zapomnianych urządzeń.
+                        Po wielu dniach zespół badawczy powrócił z nieznanym
+                        mechanizmem odnalezionym w opuszczonym warsztacie.
+                    </p>
+
+                    <p>
+                        Urządzenie przetrwało podróż, ale nie zdradza ani
+                        swojego przeznaczenia, ani pochodzenia. W jego pamięci
+                        znajduje się tylko zaszyfrowana wiadomość. Być może
+                        zawiera instrukcję uruchomienia mechanizmu albo
+                        ostrzeżenie pozostawione przez jego konstruktora.
+                    </p>
+
+                    <p>
+                        Próby odczytu ujawniły nietypowy protokół. Urządzenie
+                        nie podaje właściwego znaku. Pozwala jedynie zgłaszać
+                        propozycje, a na każdą błędną odpowiada wyjątkiem:
+                        informuje, czy wskazany znak znajduje się za nisko,
+                        czy za wysoko w obowiązującym alfabecie. Trafienia
+                        nie sygnalizuje żadnym komunikatem — metoda po prostu
+                        kończy się bez wyjątku.
+                    </p>
+
+                    <p>
+                        Twoim zadaniem jest przygotowanie dekodera, który
+                        nauczy się komunikować z mechanizmem, odnajdzie szyfr
+                        i odczyta wiadomość przywiezioną przez ekspedycję.
+                        Musi również rozpoznać sytuację, w której uszkodzone
+                        urządzenie udziela sprzecznych odpowiedzi.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Idea zadania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Dekoder jest reprezentowany przez interfejs
+                            <code>CipherDecoderInterface</code>. Otrzymuje
+                            obiekt implementujący interfejs
+                            <code>CipherMachineInterface</code>. Implementacja
+                            urządzenia zostanie dostarczona przez system
+                            testujący — nie należy tworzyć jej samodzielnie.
+                        </p>
+
+                        <p>
+                            Metoda <code>getEncryptedMessage()</code> zwraca
+                            tekst zapisany w pamięci urządzenia. Każdy jego
+                            zaszyfrowany znak trzeba przypisać do właściwego
+                            znaku jawnego za pomocą metody:
+                        </p>
+
+                        <pre><code>checkCharacter(encryptedCharacter, proposedCharacter)</code></pre>
+
+                        <p>
+                            Sprawdzanie propozycji może zakończyć się na trzy
+                            sposoby:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong><code>TooLowException</code>:</strong>
+                                zaproponowany znak znajduje się przed
+                                poprawnym znakiem w alfabecie.
+                            </li>
+
+                            <li>
+                                <strong><code>TooHighException</code>:</strong>
+                                zaproponowany znak znajduje się za
+                                poprawnym znakiem w alfabecie.
+                            </li>
+
+                            <li>
+                                <strong>Brak wyjątku:</strong>
+                                propozycja jest poprawna i odnaleziono
+                                mapowanie sprawdzanego znaku.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            wyjątki <code>TooLowException</code> oraz
+                            <code>TooHighException</code> nie oznaczają awarii.
+                            Są częścią protokołu komunikacji z urządzeniem
+                            i należy odpowiednio na nie reagować.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Alfabet urządzenia</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Znaki jawne są uporządkowane zgodnie ze stałą
+                            <code>CipherDecoderInterface.ALPHABET</code>:
+                        </p>
+
+                        <pre><code>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ</code></pre>
+
+                        <p>
+                            Najpierw występują cyfry od <code>0</code> do
+                            <code>9</code>, a następnie wielkie litery od
+                            <code>A</code> do <code>Z</code>. Informacje
+                            „za nisko” i „za wysoko” odnoszą się do pozycji
+                            znaku w tym napisie, a nie do jego kodu Unicode.
+                        </p>
+
+                        <p>
+                            Znaki spoza alfabetu, na przykład spacje,
+                            przecinki, kropki i myślniki, nie są szyfrowane.
+                            Należy przepisać je do wyniku bez zmian i nie
+                            przekazywać ich do <code>checkCharacter()</code>.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Odnajdywanie znaku</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Do odnajdywania mapowania należy wykorzystać
+                            informacje przekazywane przez wyjątki. Zalecanym
+                            sposobem jest wyszukiwanie binarne: po każdej
+                            odpowiedzi urządzenia można odrzucić część
+                            alfabetu, w której poprawny znak na pewno się
+                            nie znajduje.
+                        </p>
+
+                        <p>
+                            Załóżmy, że zaszyfrowany znak <code>X</code>
+                            oznacza jawną literę <code>K</code>. Przykładowe
+                            poszukiwanie może wyglądać następująco:
+                        </p>
+
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Propozycja</th>
+                                        <th>Odpowiedź urządzenia</th>
+                                        <th>Wniosek</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>H</code></td>
+                                        <td><code>TooLowException</code></td>
+                                        <td>Szukany znak znajduje się dalej</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Q</code></td>
+                                        <td><code>TooHighException</code></td>
+                                        <td>Szukany znak znajduje się wcześniej</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>L</code></td>
+                                        <td><code>TooHighException</code></td>
+                                        <td>Szukany znak znajduje się wcześniej</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>J</code></td>
+                                        <td><code>TooLowException</code></td>
+                                        <td>Szukany znak znajduje się dalej</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>K</code></td>
+                                        <td>Brak wyjątku</td>
+                                        <td>Odnaleziono mapowanie <code>X → K</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            Po trafieniu parę znaków należy zapisać w mapie
+                            szyfru. Kolejne wystąpienia <code>X</code> można
+                            odszyfrować za pomocą zapamiętanego mapowania.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Zapamiętywanie szyfru</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Dekoder może otrzymać więcej niż jedną wiadomość.
+                            Mapowania znalezione podczas udanych wywołań
+                            <code>decode()</code> należy zachować i wykorzystywać
+                            w przyszłości.
+                        </p>
+
+                        <p>
+                            Zanim zapamiętane mapowanie zostanie użyte dla
+                            kolejnego urządzenia, trzeba sprawdzić je przez
+                            ponowne wywołanie <code>checkCharacter()</code>.
+                            Brak wyjątku potwierdza jego poprawność. Jeżeli
+                            urządzenie rzuci wyjątek, jego szyfr jest sprzeczny
+                            z informacjami zgromadzonymi wcześniej i całe
+                            dekodowanie należy przerwać.
+                        </p>
+
+                        <p>
+                            Metoda <code>getCipher()</code> zwraca mapę, w której:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>kluczem jest znak zaszyfrowany,</li>
+                            <li>wartością jest odpowiadający mu znak jawny.</li>
+                        </ul>
+
+                        <p>
+                            Zwrócona mapa musi być kopią. Jej zmodyfikowanie
+                            poza dekoderem nie może wpływać na mapowania
+                            przechowywane wewnątrz obiektu.
+                        </p>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            nowe mapowania można zapisać na stałe dopiero po
+                            poprawnym odszyfrowaniu całej wiadomości. Jeżeli
+                            operacja zakończy się błędem, stan dekodera musi
+                            pozostać dokładnie taki jak przed jej rozpoczęciem.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Uszkodzone urządzenie</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Mechanizm znaleziony w opuszczonym warsztacie
+                            może być uszkodzony. W takim przypadku jego
+                            odpowiedzi mogą wykluczyć wszystkie możliwe znaki.
+                        </p>
+
+                        <p>
+                            Przykładowo urządzenie może dla propozycji
+                            <code>J</code> zgłosić <code>TooLowException</code>,
+                            a dla bezpośrednio następującego po niej znaku
+                            <code>K</code> zgłosić <code>TooHighException</code>.
+                            Pomiędzy <code>J</code> i <code>K</code> nie istnieje
+                            żaden znak alfabetu, więc nie można odnaleźć
+                            poprawnego mapowania.
+                        </p>
+
+                        <p>
+                            W takiej sytuacji implementacja ma
+                            zgłosić checked exception
+                            <code>DecodingException</code>. Ostatni otrzymany
+                            <code>CipherSearchException</code> należy przekazać
+                            jako jego przyczynę, aby zachować informację o
+                            odpowiedzi, która ujawniła niespójność.
+                        </p>
+
+                        <pre><code>throw new DecodingException(
+    "Brak mapowania dla znaku: " + encryptedCharacter,
+    lastException
+);</code></pre>
+
+                        <p>
+                            Tak samo należy postąpić, jeżeli urządzenie
+                            odrzuci mapowanie zapamiętane podczas wcześniejszego
+                            poprawnego dekodowania.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykład działania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Urządzenie zwraca zaszyfrowaną wiadomość:
+                        </p>
+
+                        <pre><code>X7-X</code></pre>
+
+                        <p>
+                            Dekoder odnajduje mapowania <code>X → K</code>
+                            oraz <code>7 → 2</code>. Myślnik nie należy do
+                            alfabetu, dlatego pozostaje bez zmian.
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Wynik <code>decode()</code>:</strong>
+                                <code>"K2-K"</code>.
+                            </li>
+                            <li>
+                                <strong>Wynik <code>getCipher()</code>:</strong>
+                                mapa zawierająca wpisy
+                                <code>X → K</code> i <code>7 → 2</code>.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Drugie wystąpienie znaku <code>X</code> korzysta
+                            z mapowania odnalezionego wcześniej w tym samym
+                            wywołaniu. Mapowanie musi zostać sprawdzone ponownie
+                            dopiero podczas dekodowania kolejnej wiadomości.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Wymagane metody</h3>
+
+                    <div class="info-box">
+                        <ul class="task-rules">
+                            <li>
+                                <strong>
+                                    <code>decode(CipherMachineInterface machine)</code>
+                                </strong>
+                                — odczytuje zaszyfrowaną wiadomość, odnajduje
+                                brakujące mapowania, weryfikuje mapowania już
+                                znane i zwraca odszyfrowany napis. W przypadku
+                                niespójności rzuca <code>DecodingException</code>.
+                            </li>
+
+                            <li>
+                                <strong><code>getCipher()</code></strong>
+                                — zwraca kopię wszystkich mapowań odkrytych
+                                podczas zakończonych powodzeniem operacji.
+                            </li>
+                        </ul>
+
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Gwarancje</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Podczas rozwiązywania zadania należy przyjąć,
+                            że testy spełniają następujące warunki:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Poprawne argumenty:</strong>
+                                obiekt urządzenia i zwracana przez niego
+                                wiadomość nie będą miały wartości
+                                <code>null</code>.
+                            </li>
+
+                            <li>
+                                <strong>Znaki zaszyfrowane:</strong>
+                                każdy znak wiadomości należący do
+                                <code>ALPHABET</code> należy potraktować jako
+                                znak wymagający odnalezienia mapowania.
+                            </li>
+
+                            <li>
+                                <strong>Pozostałe znaki:</strong>
+                                znaki spoza alfabetu nie są szyfrowane i
+                                urządzenie nie oczekuje prób ich sprawdzania.
+                            </li>
+
+                            <li>
+                                <strong>Stałe odpowiedzi:</strong>
+                                w obrębie jednego urządzenia odpowiedzi dla
+                                tej samej pary znaków nie zmieniają się.
+                            </li>
+
+                            <li>
+                                <strong>Możliwa niespójność:</strong>
+                                urządzenie może nie posiadać żadnego poprawnego
+                                znaku dla wybranego symbolu albo odrzucić
+                                wcześniej zapamiętane mapowanie.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Nie trzeba obsługiwać wartości <code>null</code>,
+                            modyfikować dostarczonych typów ani tworzyć własnej
+                            implementacji urządzenia.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+
+                    <div class="info-box">
+                        <p>
+                            Rozwiązanie powinno zostać przygotowane w
+                            <code>Java 17</code> i spełniać następujące
+                            wymagania:
+                        </p>
+
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Folder:</strong>
+                                wszystkie pliki rozwiązania umieść w folderze
+                                <code>Zadanie5</code>.
+                            </li>
+
+                            <li>
+                                <strong>Klasa:</strong>
+                                implementację przygotuj w klasie
+                                <code>CipherDecoder</code>, która implementuje
+                                <code>CipherDecoderInterface</code>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs dekodera:</strong>
+                                pobierz i wykorzystaj plik
+                                <a href="java/CipherDecoderInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    CipherDecoderInterface.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Interfejs urządzenia:</strong>
+                                wykorzystaj dostarczony plik
+                                <a href="java/CipherMachineInterface.java"
+                                class="javadoc-link"
+                                download>
+                                    CipherMachineInterface.java
+                                </a>.
+                                Nie twórz własnej implementacji tego interfejsu.
+                            </li>
+
+                            <li>
+                                <strong>Typy wyjątków:</strong>
+                                pobierz i wykorzystaj dostarczone pliki
+                                <a href="java/CipherSearchException.java"
+                                class="javadoc-link"
+                                download>
+                                    CipherSearchException.java
+                                </a>,
+                                <a href="java/TooLowException.java"
+                                class="javadoc-link"
+                                download>
+                                    TooLowException.java
+                                </a>,
+                                <a href="java/TooHighException.java"
+                                class="javadoc-link"
+                                download>
+                                    TooHighException.java
+                                </a>
+                                oraz
+                                <a href="java/DecodingException.java"
+                                class="javadoc-link"
+                                download>
+                                    DecodingException.java
+                                </a>.
+                            </li>
+
+                            <li>
+                                <strong>Dokumentacja:</strong>
+                                szczegółowy opis kontraktu znajduje się w
+                                <a href="docs/CipherDecoderInterface.html"
+                                class="javadoc-link"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                    dokumentacji JavaDoc
+                                </a>.
+                                Dokumentacja pozostałych dostarczonych typów
+                                jest dostępna przez odnośniki na tej stronie.
+                            </li>
+                        </ul>
+
+                        <p class="important-text">
+                            <strong>Ważne:</strong>
+                            Twoim zadaniem jest implementacja wyłącznie klasy
+                            <code>CipherDecoder</code>. Nie zmieniaj dostarczonych
+                            plików i nie twórz własnej implementacji
+                            <code>CipherMachineInterface</code>.
+                        </p>
+                    </div>
+                </section>
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+
+                    <div class="qa-content">
+                        <p class="qa-empty">
+                            Na ten moment nie ma żadnych pytań
+                            ani odpowiedzi.
+                        </p>
+                    </div>
+                </details>
+
+            </div>
+        </details>
+
     </section>
 
     <footer>
-        Ostatnia aktualizacja: 04.11.2026.
+        Ostatnia aktualizacja: 08.11.2026.
         Strona wykonana przy wsparciu AI.
     </footer>
 
