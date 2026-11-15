@@ -3235,10 +3235,238 @@
             </div>
         </details>
 
+        <details class="task-card" data-deadline="2026-11-29T23:59:59">
+            <summary class="task-summary">
+                <span class="task-number">06</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 6 - Równoległe uruchomienie</strong>
+
+                    <span class="task-description">
+                        Wątki · Równoległe przetwarzanie
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-11-29T23:59:59">
+                            29.11.2026, 23:59
+                        </time>
+                        <span class="deadline-separator">·</span>
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+                        <span class="deadline-separator">·</span>
+                        <span class="task-points">Maks. 2 pkt</span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+                <div class="info-box task-story">
+                    <p>
+                        Odszyfrowana wiadomość z ekspedycji pozwoliła
+                        uruchomić odnalezione urządzenie. Mechanizm składa się
+                        z wielu niezależnych modułów, które muszą pracować
+                        jednocześnie. Każdy z nich przekazuje sekwencję liczb
+                        albo znaków i kontroluje poprawność bieżącego wyniku.
+                    </p>
+                    <p>
+                        Twoim zadaniem jest przygotowanie klasy
+                        <code>ParallelProcessor</code>, która utworzy wymaganą
+                        liczbę wątków, przydzieli każdemu osobne podzadanie,
+                        uruchomi wszystkie moduły i zaczeka na ich zakończenie.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Protokół uruchomienia</h3>
+                    <div class="info-box">
+                        <p>
+                            Metoda <code>process(TaskProviderInterface provider)</code>
+                            pobiera liczbę wątków przez
+                            <code>getThreadCount()</code>, a następnie pobiera
+                            dokładnie tyle osobnych podzadań, wywołując dla
+                            każdego z nich bezargumentową metodę
+                            <code>getSubtask()</code>.
+                        </p>
+                        <ul class="task-rules">
+                            <li>Utwórz dokładnie tyle wątków, ile wskazuje dostawca.</li>
+                            <li>Każde podzadanie obsłuż w jednym osobnym wątku.</li>
+                            <li>Najpierw uruchom wszystkie wątki metodą <code>start()</code>.</li>
+                            <li>
+                                Następnie zaczekaj na zakończenie każdego z nich
+                                za pomocą <code>join()</code>. Metoda
+                                <code>process()</code> jest blokująca i nie może
+                                zakończyć się wcześniej.
+                            </li>
+                        </ul>
+                        <p class="important-text">
+                            <strong>Ważne:</strong> samo kolejne wykonanie podzadań
+                            w wątku wywołującym nie spełnia wymagań. Moduły
+                            muszą faktycznie działać współbieżnie.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przetwarzanie podzadania</h3>
+                    <div class="info-box">
+                        <p>
+                            Typ zwracany przez <code>getType()</code> określa
+                            sposób obliczania wyniku. Podzadanie jest jednorodne:
+                            zawiera wyłącznie liczby <code>Integer</code> albo
+                            znaki <code>Character</code>.
+                        </p>
+                        <ul class="task-rules">
+                            <li>
+                                Pierwsze wywołanie <code>getNext()</code> musi
+                                otrzymać <code>null</code>.
+                            </li>
+                            <li>
+                                Dla typu <code>INTEGER</code> kolejnym argumentem
+                                jest suma wszystkich otrzymanych dotąd liczb.
+                            </li>
+                            <li>
+                                Dla typu <code>CHARACTER</code> kolejnym argumentem
+                                jest napis powstały przez konkatenację wszystkich
+                                otrzymanych dotąd znaków.
+                            </li>
+                            <li>
+                                Zwrócenie <code>null</code> przez
+                                <code>getNext()</code> oznacza koniec podzadania.
+                            </li>
+                        </ul>
+                        <p>
+                            Dostawca przekaże kolejny obiekt tylko wtedy, gdy
+                            otrzymany wynik poprzedniego etapu jest poprawny.
+                            Wynik nie jest zwracany przez <code>process()</code>
+                            — służy do prowadzenia protokołu z podzadaniem.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Przykłady sekwencji</h3>
+                    <div class="info-box">
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr><th>Typ</th><th>Zwrócona wartość</th><th>Argument następnego <code>getNext()</code></th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>INTEGER</code></td><td><code>4</code></td><td><code>4</code></td></tr>
+                                    <tr><td><code>INTEGER</code></td><td><code>-1</code></td><td><code>3</code></td></tr>
+                                    <tr><td><code>INTEGER</code></td><td><code>7</code></td><td><code>10</code></td></tr>
+                                    <tr><td><code>CHARACTER</code></td><td><code>'J'</code></td><td><code>"J"</code></td></tr>
+                                    <tr><td><code>CHARACTER</code></td><td><code>'A'</code></td><td><code>"JA"</code></td></tr>
+                                    <tr><td><code>CHARACTER</code></td><td><code>'V'</code></td><td><code>"JAV"</code></td></tr>
+                                    <tr><td><code>CHARACTER</code></td><td><code>'A'</code></td><td><code>"JAVA"</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Puste obiekty</h3>
+                    <div class="info-box">
+                        <p>
+                            <code>TaskObjectInterface.getValue()</code> może
+                            zwrócić <code>null</code>. Taki pusty obiekt nie
+                            kończy podzadania i nie zmienia wyniku.
+                        </p>
+                        <ul class="task-rules">
+                            <li>
+                                Po wartościach <code>2, null, 5</code> argumenty
+                                kolejnych wywołań wynoszą
+                                <code>null, 2, 2, 7</code>.
+                            </li>
+                            <li>
+                                Po wartościach <code>null, null, 'A'</code>
+                                wyniki pozostają <code>null</code> aż do znaku;
+                                dopiero potem wynikiem jest <code>"A"</code>.
+                            </li>
+                            <li>
+                                Pustego <code>TaskObjectInterface</code> nie należy
+                                mylić z <code>null</code> zwróconym bezpośrednio
+                                przez <code>getNext()</code>, który kończy sekwencję.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Niezależność wątków</h3>
+                    <div class="info-box">
+                        <p>
+                            Każdy wątek ma własne podzadanie i własny wynik.
+                            Nie twórz wspólnego akumulatora ani kolekcji wyników.
+                            Synchronizacja danych między wątkami nie jest potrzebna.
+                            Nie wolno jednak zakładać konkretnej kolejności ich
+                            wykonywania.
+                        </p>
+                        <p>
+                            Dostawca może zwrócić zero podzadań. W takim
+                            przypadku nie należy tworzyć żadnego wątku.
+                            Dla jednego podzadania należy utworzyć jeden wątek
+                            i również zaczekać na jego zakończenie.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+                    <div class="info-box">
+                        <ul class="task-rules">
+                            <li>
+                                Umieść wszystkie pliki w folderze
+                                <code>Zadanie6</code> i użyj <code>Java 17</code>.
+                            </li>
+                            <li>
+                                Zaimplementuj wyłącznie klasę
+                                <code>ParallelProcessor</code>, implementującą
+                                <code>ParallelProcessorInterface</code>.
+                            </li>
+                            <li>
+                                Pobierz dostarczone pliki:
+                                <a href="java/ParallelProcessorInterface.java" class="javadoc-link" download>ParallelProcessorInterface.java</a>,
+                                <a href="java/TaskProviderInterface.java" class="javadoc-link" download>TaskProviderInterface.java</a>,
+                                <a href="java/SubtaskInterface.java" class="javadoc-link" download>SubtaskInterface.java</a>,
+                                <a href="java/TaskObjectInterface.java" class="javadoc-link" download>TaskObjectInterface.java</a>
+                                oraz
+                                <a href="java/SubtaskType.java" class="javadoc-link" download>SubtaskType.java</a>.
+                            </li>
+                            <li>
+                                Szczegółowy kontrakt znajduje się w
+                                <a href="docs/ParallelProcessorInterface.html" class="javadoc-link" target="_blank" rel="noopener noreferrer">dokumentacji JavaDoc</a>.
+                            </li>
+                        </ul>
+                        <p class="important-text">
+                            <strong>Ważne:</strong> nie zmieniaj dostarczonych
+                            interfejsów i enuma ani nie twórz własnych
+                            implementacji dostawcy, podzadań lub obiektów zadania.
+                        </p>
+                    </div>
+                </section>
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+                    <div class="qa-content">
+                        <p class="qa-empty">Na ten moment nie ma żadnych pytań ani odpowiedzi.</p>
+                    </div>
+                </details>
+            </div>
+        </details>
+
     </section>
 
     <footer>
-        Ostatnia aktualizacja: 13.11.2026.
+        Ostatnia aktualizacja: 15.11.2026.
         Strona wykonana przy wsparciu AI.
     </footer>
 
