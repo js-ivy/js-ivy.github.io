@@ -3463,10 +3463,369 @@
             </div>
         </details>
 
+        <details class="task-card" data-deadline="2026-12-06T23:59:59">
+            <summary class="task-summary">
+                <span class="task-number">07</span>
+
+                <span class="task-heading">
+                    <strong>Zadanie 7 - Rozbudowa Fabryki Cudów</strong>
+
+                    <span class="task-description">
+                        Synchronizacja · Monitory · wait() · notifyAll()
+                    </span>
+
+                    <span class="term-time">
+                        Termin I:
+                        <time datetime="2026-12-06T23:59:59">
+                            06.12.2026, 23:59
+                        </time>
+                        <span class="deadline-separator">·</span>
+                        <span class="task-countdown" aria-live="off">
+                            Obliczanie czasu...
+                        </span>
+                        <span class="deadline-separator">·</span>
+                        <span class="task-points">Maks. 2 pkt</span>
+                    </span>
+                </span>
+
+                <span class="task-arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="task-content">
+                <div class="info-box task-story">
+                    <p>
+                        Witamy ponownie w Fabryce Cudów! Aukcja wyjątkowych
+                        przedmiotów zakończyła się sukcesem, a zdobyte środki
+                        pozwoliły sfinansować ekspedycję. Przywiezione przez nią
+                        urządzenie zostało odszyfrowane i uruchomione, a jego
+                        niezależne moduły pracują już równolegle.
+                    </p>
+                    <p>
+                        Wiedza zdobyta podczas badań pozwoliła rozbudować
+                        fabryczne linie produkcyjne. Nowe automaty wytwarzają
+                        koła zębate, sprężyny i magiczne kryształy. Części
+                        trafiają do wspólnego magazynu, z którego inne automaty
+                        pobierają je i składają w gotowe podzespoły.
+                    </p>
+                    <p>
+                        Kilka maszyn może jednocześnie próbować dostarczyć lub
+                        pobrać części. Magazyn ma ograniczoną pojemność, a
+                        montaż może rozpocząć się dopiero po zgromadzeniu
+                        kompletnej receptury.
+                    </p>
+                    <p>
+                        Twoim zadaniem jest przygotowanie klasy
+                        <code>AssemblyLine</code>, która zsynchronizuje pracę
+                        automatów. Wątki dostawców i monterów zostaną utworzone
+                        przez system testujący.
+                    </p>
+                </div>
+
+                <section class="task-section">
+                    <h3>Idea zadania</h3>
+                    <div class="info-box">
+                        <p>
+                            Linia montażowa jest reprezentowana przez interfejs
+                            <code>AssemblyLineInterface</code>. Wszystkie wątki
+                            korzystają z jednego obiektu implementującego ten
+                            interfejs i współdzielą przechowywany w nim stan.
+                        </p>
+                        <p>
+                            Nie tworzysz ani nie uruchamiasz wątków. Twoim
+                            zadaniem jest zapewnienie, aby równoczesne wywołania
+                            metod były bezpieczne, a wątki oczekiwały bez
+                            aktywnego sprawdzania stanu magazynu.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Uruchomienie linii</h3>
+                    <div class="info-box">
+                        <p>
+                            Przed rozpoczęciem pracy system testujący wywoła
+                            metodę <code>initialize(int capacity)</code>.
+                            Metoda przygotowuje pusty magazyn, którego wspólna
+                            pojemność wynosi <code>capacity</code> części.
+                        </p>
+                        <p>
+                            Limit dotyczy łącznej liczby wszystkich części.
+                            Jeżeli pojemność wynosi <code>5</code>, magazyn może
+                            przykładowo zawierać dwa koła zębate, jedną sprężynę
+                            i dwa kryształy.
+                        </p>
+                        <p>
+                            System testujący gwarantuje, że pojemność jest
+                            dodatnia, inicjalizacja zostanie wykonana dokładnie
+                            raz i nastąpi przed użyciem pozostałych metod.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Dostawy części</h3>
+                    <div class="info-box">
+                        <p>
+                            Metoda <code>deliver(type, amount)</code> dostarcza
+                            do magazynu partię części wskazanego rodzaju.
+                            Cała partia musi zostać przyjęta jednocześnie.
+                        </p>
+                        <ul class="task-rules">
+                            <li>
+                                Jeżeli jest miejsce na całą partię, należy
+                                natychmiast dodać wszystkie części.
+                            </li>
+                            <li>
+                                Jeżeli brakuje miejsca, wywołujący wątek czeka,
+                                aż odpowiednia liczba miejsc zostanie zwolniona.
+                            </li>
+                            <li>
+                                Nie wolno dodawać części partii ani zmieniać
+                                stanu magazynu przed zakończeniem oczekiwania.
+                            </li>
+                            <li>
+                                Po zamknięciu dostaw metoda kończy się bez
+                                zmiany stanu magazynu.
+                            </li>
+                        </ul>
+                        <p>
+                            System zawsze przekaże poprawny rodzaj oraz dodatnią
+                            liczbę części nieprzekraczającą pojemności magazynu.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Montaż podzespołów</h3>
+                    <div class="info-box">
+                        <p>
+                            Metoda <code>assemble(type)</code> pobiera komplet
+                            części wymaganych przez wybraną recepturę:
+                        </p>
+                        <div class="table-wrapper">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>Podzespół</th>
+                                        <th>Wymagane części</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>DRIVE_UNIT</code></td>
+                                        <td>2 × <code>GEAR</code>, 1 × <code>SPRING</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>CONTROL_UNIT</code></td>
+                                        <td>1 × <code>GEAR</code>, 2 × <code>CRYSTAL</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>STABILIZER</code></td>
+                                        <td>1 × <code>SPRING</code>, 1 × <code>CRYSTAL</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="task-rules">
+                            <li>
+                                Jeżeli dostępne są wszystkie potrzebne części,
+                                należy atomowo pobrać cały komplet.
+                            </li>
+                            <li>
+                                Jeżeli brakuje choć jednej części, wątek czeka.
+                                Nie wolno wcześniej pobrać częściowego zestawu.
+                            </li>
+                            <li>
+                                Udany montaż zwraca kolejny unikalny numer
+                                podzespołu. Numery rozpoczynają się od
+                                <code>1</code> i są wspólne dla wszystkich typów.
+                            </li>
+                            <li>
+                                Po zamknięciu dostaw nadal można montować
+                                podzespoły, na które wystarcza części.
+                            </li>
+                            <li>
+                                Jeżeli dostawy są zamknięte i brakuje części,
+                                metoda zwraca <code>null</code>.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Zamknięcie dostaw</h3>
+                    <div class="info-box">
+                        <p>
+                            Metoda <code>closeDeliveries()</code> informuje, że
+                            do magazynu nie trafią już nowe części. Operacja:
+                        </p>
+                        <ul class="task-rules">
+                            <li>nie usuwa zgromadzonych części,</li>
+                            <li>uniemożliwia przyjmowanie następnych dostaw,</li>
+                            <li>budzi wszystkie oczekujące wątki.</li>
+                        </ul>
+                        <p>
+                            Wątek czekający w <code>deliver()</code> kończy wtedy
+                            metodę bez dodawania części. Wątek czekający w
+                            <code>assemble()</code> ponownie sprawdza recepturę:
+                            montuje produkt albo zwraca <code>null</code>.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Podgląd stanu</h3>
+                    <div class="info-box">
+                        <ul class="task-rules">
+                            <li>
+                                <code>getStock()</code> zwraca mapę zawierającą
+                                aktualną liczbę części każdego rodzaju.
+                            </li>
+                            <li>
+                                <code>getAssembledProducts()</code> zwraca mapę
+                                z liczbą zmontowanych podzespołów każdego typu.
+                            </li>
+                            <li>
+                                <code>getStoredCount()</code> zwraca łączną
+                                liczbę części w magazynie.
+                            </li>
+                            <li>
+                                <code>getAssembledCount()</code> zwraca liczbę
+                                dotychczas zmontowanych podzespołów.
+                            </li>
+                        </ul>
+                        <p>
+                            Odczyty stanu również mogą następować podczas pracy
+                            innych wątków i muszą być odpowiednio synchronizowane.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Wymagana synchronizacja</h3>
+                    <div class="info-box">
+                        <ul class="task-rules">
+                            <li>
+                                Stan linii należy chronić jednym monitorem za
+                                pomocą słowa kluczowego <code>synchronized</code>.
+                            </li>
+                            <li>
+                                Wątki oczekujące na części lub miejsce mają
+                                korzystać z metody <code>wait()</code>.
+                            </li>
+                            <li>
+                                Warunek oczekiwania trzeba sprawdzać w pętli
+                                <code>while</code>, również po wybudzeniu.
+                            </li>
+                            <li>
+                                Po zmianie stanu mogącej umożliwić pracę innym
+                                wątkom należy użyć <code>notifyAll()</code>.
+                            </li>
+                            <li>
+                                <code>InterruptedException</code> należy
+                                przekazać do kodu wywołującego. Przerwanie nie
+                                może pozostawić częściowo wykonanej operacji.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Gwarancje</h3>
+                    <div class="info-box">
+                        <p>
+                            Podczas rozwiązywania zadania należy przyjąć,
+                            że testy spełniają następujące warunki:
+                        </p>
+                        <ul class="task-rules">
+                            <li>
+                                <strong>Poprawna inicjalizacja:</strong>
+                                metoda <code>initialize()</code> zostanie
+                                wywołana dokładnie raz, przed rozpoczęciem
+                                korzystania z pozostałych metod, a podana
+                                pojemność będzie dodatnia.
+                            </li>
+                            <li>
+                                <strong>Poprawne argumenty:</strong>
+                                rodzaje części i podzespołów nie będą miały
+                                wartości <code>null</code>.
+                            </li>
+                            <li>
+                                <strong>Poprawne dostawy:</strong>
+                                liczba dostarczanych części będzie mieściła się
+                                w zakresie od <code>1</code> do pojemności
+                                magazynu.
+                            </li>
+                            <li>
+                                <strong>Jedno zamknięcie:</strong>
+                                metoda <code>closeDeliveries()</code> zostanie
+                                wywołana dokładnie raz.
+                            </li>
+                            <li>
+                                <strong>Brak ustalonej kolejności:</strong>
+                                wątki mogą wykonywać się w dowolnej kolejności.
+                                Nie jest wymagane zapewnienie sprawiedliwej
+                                kolejności ich obsługi.
+                            </li>
+                        </ul>
+                        <p>
+                            Nie trzeba obsługiwać wartości <code>null</code>,
+                            niepoprawnych pojemności i wielkości dostaw ani
+                            wielokrotnej inicjalizacji lub zamknięcia linii.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="task-section">
+                    <h3>Forma rozwiązania</h3>
+                    <div class="info-box">
+                        <ul class="task-rules">
+                            <li>
+                                Umieść wszystkie pliki w folderze
+                                <code>Zadanie7</code> i użyj <code>Java 17</code>.
+                            </li>
+                            <li>
+                                Zaimplementuj wyłącznie klasę
+                                <code>AssemblyLine</code>, implementującą
+                                <code>AssemblyLineInterface</code>.
+                            </li>
+                            <li>
+                                Pobierz dostarczone pliki:
+                                <a href="java/AssemblyLineInterface.java" class="javadoc-link" download>AssemblyLineInterface.java</a>,
+                                <a href="java/ComponentType.java" class="javadoc-link" download>ComponentType.java</a>
+                                oraz
+                                <a href="java/ProductType.java" class="javadoc-link" download>ProductType.java</a>.
+                            </li>
+                            <li>
+                                Szczegółowy kontrakt znajduje się w
+                                <a href="docs/AssemblyLineInterface.html" class="javadoc-link" target="_blank" rel="noopener noreferrer">dokumentacji JavaDoc</a>.
+                            </li>
+                        </ul>
+                        <p class="important-text">
+                            <strong>Ważne:</strong> nie zmieniaj dostarczonych
+                            plików. Nie twórz wątków i nie używaj metod
+                            <code>start()</code> ani <code>join()</code> — wątki
+                            zostaną przygotowane przez system testujący.
+                        </p>
+                    </div>
+                </section>
+
+                <details class="qa-section">
+                    <summary class="qa-summary">
+                        <span>Pytania i odpowiedzi (Q&amp;A)</span>
+                        <span class="qa-arrow" aria-hidden="true">⌄</span>
+                    </summary>
+                    <div class="qa-content">
+                        <p class="qa-empty">Na ten moment nie ma żadnych pytań ani odpowiedzi.</p>
+                    </div>
+                </details>
+            </div>
+        </details>
+
     </section>
 
     <footer>
-        Ostatnia aktualizacja: 16.11.2026.
+        Ostatnia aktualizacja: 22.11.2026.
         Strona wykonana przy wsparciu AI.
     </footer>
 
